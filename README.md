@@ -1,23 +1,31 @@
-# Relatório - QR-Caching_WebSite (Continuação)
+# Relatório - QR-Caching_Web (Continuação)
 
 ## Índice
 1. [Resumo do Projeto](#resumo-do-projeto)
 2. [Componente de Cada Disciplina](#componente-de-cada-disciplina)
+3. - [Engenharia de Software](#engenharia-de-software)
    - [Inteligência Artificial](#inteligência-artificial)
    - [Segurança Informática](#segurança-informática)
-   - [Engenharia de Software](#engenharia-de-software)
    - [Sistemas Distribuídos](#sistemas-distribuídos)
-3. [Contribuintes](#contribuintes)
+4. [Contribuintes](#contribuintes)
 
 ---
 
 ## Resumo do Projeto
 
-No seguimento do projeto QR-Caching_WebSite, a nova fase do desenvolvimento visa a integração de conceitos avançados de Inteligência Artificial, Segurança Informática, Engenharia de Software e Sistemas Distribuídos, permitindo aprimorar a experiência do utilizador e a robustez do sistema. Esta fase do projeto vai além da criação e visualização de rotas de QR Codes, acrescentando funcionalidades inteligentes, maior segurança dos dados e uma arquitetura mais distribuída e escalável.
+No seguimento do projeto QR-Caching_Web, a nova fase do desenvolvimento visa a integração de conceitos avançados de Inteligência Artificial, Segurança Informática, Engenharia de Software e Sistemas Distribuídos, permitindo aprimorar a experiência do utilizador e a robustez do sistema. Esta fase do projeto vai além da criação e visualização de rotas de QR Codes, acrescentando funcionalidades inteligentes, maior segurança dos dados e uma arquitetura mais distribuída e escalável.
 
 ---
 
 ## Componente de Cada Disciplina
+
+### Engenharia de Software
+
+A disciplina de Engenharia de Software será aplicada através de boas práticas de desenvolvimento e documentação. Serão criados diagramas de arquitetura e fluxos de dados para detalhar as interações entre os diferentes componentes do sistema. Além disso, serão aplicadas metodologias ágeis no processo de desenvolvimento, garantindo um ciclo de feedback rápido e contínuo.
+
+#### Funcionalidades:
+- Implementação de testes automáticos.
+- Aplicação de metodologias ágeis no desenvolvimento e gestão do projeto.
 
 ### Inteligência Artificial
 
@@ -33,20 +41,11 @@ Além disso, nos eventos, será implementada uma IA responsável pela distribui�
 
 ### Segurança Informática
 
-A segurança da informação será reforçada com a implementação de várias medidas avançadas. A encriptação dos dados será uma prioridade, tanto para a comunicação entre o cliente e o servidor como para os dados armazenados. Será também implementada uma verificação de segurança para proteger contra ataques, como SQL Injection e Cross-Site Scripting (XSS), garantindo a confidencialidade e integridade dos dados dos utilizadores.
+A segurança da informação será reforçada com a implementação de várias medidas avançadas. A encriptação dos dados será uma prioridade, tanto para a comunicação entre o cliente e o servidor como para os dados armazenados. Será também implementada uma verificação de segurança para proteger contra ataques, como Cross-Site Scripting (XSS), garantindo a confidencialidade e integridade dos dados dos utilizadores.
 
 #### Funcionalidades:
 - Encriptação de dados sensíveis.
-- Proteção contra ataques comuns (SQL Injection, XSS, etc.).
-
-### Engenharia de Software
-
-A disciplina de Engenharia de Software será aplicada através de boas práticas de desenvolvimento e documentação. Serão criados diagramas de arquitetura e fluxos de dados para detalhar as interações entre os diferentes componentes do sistema. Além disso, serão aplicadas metodologias ágeis no processo de desenvolvimento, garantindo um ciclo de feedback rápido e contínuo.
-
-#### Funcionalidades:
-- Documentação completa do sistema (diagramas de arquitetura, fluxos de dados, etc.).
-- Implementação de testes automáticos (unitários e de integração).
-- Aplicação de metodologias ágeis no desenvolvimento e gestão do projeto.
+- Proteção contra ataques comuns.
 
 ### Sistemas Distribuídos
 
@@ -60,5 +59,7 @@ Para garantir a escalabilidade do sistema e uma experiência contínua para os u
 
 ## Contribuintes
 
-- **Tomás Salgueiro (Número 20220589)**
 - **João Moniz (Número 20220550)**
+  
+- **Tomás Salgueiro (Número 20220589)**
+  
