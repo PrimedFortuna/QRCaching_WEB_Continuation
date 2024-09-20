@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <link rel="icon" href="Logo_mini.png">
+    <title>Login</title>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <a href="index.html"><img src="img/Logo_EXT_BlackAndPurple_rmbk.png" alt="Logo" class="logo"></a>
+        </nav>
+    </header>
+    <main>
+        <div class="map-background">
+            <img src="img/Lisbon_map_full.png" alt="Map Background" class="map-background-img">
+            <div class="showcase">
+                <div class="showcase_content">
+                    <div class="form">
+                        <h1>Login</h1>
+                        <div class="info">
+                            <input id="email1" class="email" type="email" placeholder="Email" required>
+                            <input id="password1" class="email" type="password" placeholder="Password" required
+                                minlength="8" maxlength="15">
+                        </div>
+                        <div class="remember">
+                            <input value="true" type="checkbox"><label>Remember me</label>
+
+                        </div>
+                        <br>
+                        <div class="actions">
+                            <button class="login-btn" type="submit" >Login</button>
+                        </div>
+                    </div>
+                    <div class="google_login">
+                        <a href="#">
+                            <img src="img/google_icon.png" alt="Google" id="google_icon">
+                        </a>
+                        <p>Login with Google</p>
+                    </div>
+                </div>
+                <div class="ask_signup">
+                    <p>New to QrCaching?</p>
+                    <a href="signup.html" class="signup_link">Sign up now</a>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="login.js"></script>
+</body>
+
+</html>

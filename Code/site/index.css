@@ -1,0 +1,458 @@
+body {
+    margin: 0;
+    overflow-x: hidden;
+    font-family: Arial, sans-serif;
+}
+
+.body_index {
+    overflow-x: hidden;
+}
+
+nav {
+    position: absolute;
+    margin: 20px;
+    left: 0;
+    right: 0;
+    padding: 10px 20px;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+main {
+    position: relative;
+}
+
+.logo {
+    width: 300px;
+    height: 125px;
+}
+
+.nav_buttons1{
+    display: flex;
+    gap: 10px;
+    padding: 25px;
+}
+
+.nav_buttons2 {
+    display: none;
+    gap: 10px;
+    padding: 25px;
+}
+
+.login-btn,
+.signup-btn,
+.estatisticas-btn,
+.profile-btn {
+    width: 200px;
+    margin: 20px 0px;
+}
+
+.create-route-btn {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+
+}
+
+.create-route-btn h2 {
+    font-size: 35px;
+    color: white;
+    text-shadow:
+        -1px -1px 0 rgb(0, 0, 0),
+        1px -1px 0 rgb(0, 0, 0),
+        -1px 1px 0 rgb(0, 0, 0),
+        1px 1px 0 rgb(0, 0, 0);
+
+
+}
+
+#create-route-btn {
+    width: 300px;
+    height: 75px;
+}
+
+.login-btn,
+.signup-btn,
+.estatisticas-btn,
+.profile-btn,
+#create-route-btn {
+    padding: 15px 30px;
+    background: linear-gradient(to right, rgb(213, 213, 213), rgb(213, 213, 213));
+    box-shadow: 0 14px 24px rgb(72, 33, 100);
+    color: rgb(0, 0, 0);
+    border-radius: 20px;
+    border: none;
+    font-size: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    flex: 1;
+
+}
+
+.login-btn:hover,
+.signup-btn:hover,
+.estatisticas-btn:hover,
+.profile-btn:hover,
+#create-route-btn:hover {
+    box-shadow: 0 14px 24px rgb(72, 33, 100);
+    background: rgb(32, 32, 32);
+    color: rgb(213, 213, 213);
+
+
+}
+
+.map { /* Map Section on create route */
+    position: static;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 1300px;
+    overflow: hidden;
+    background-color: gray;
+}
+
+.map-background {
+    position: static;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.map-background-img {
+    width: 100%;
+    height: 100%;
+    filter: brightness(70%);
+    object-fit: cover;
+}
+
+.app_section {
+    position: static;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(213, 213, 213);
+}
+
+.app_section_text {
+    margin-bottom: 20px;
+    margin-left: 25%;
+}
+
+.app_section_text h2 {
+    font-size: 40px;
+    margin-bottom: 10px;
+    padding-top: 20px;
+}
+
+.app_section_text p {
+    font-size: 25px;
+    line-height: 1.5;
+}
+
+.app_section_download {
+    display: flex;
+    margin-left: 25%;
+}
+
+.app_section_download img {
+    width: 12%;
+    padding-bottom: 20px;
+    margin-right: 10px;
+    display: inline-block;
+}
+
+.app_section_download img:active {
+    transform: scale(0.95);
+}
+
+.app_section_phone img {
+    width: 8%;
+    position: absolute;
+    top: 40%;
+    left: 65%;
+    text-align: center;
+}
+
+.howto_section {
+    position: static;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(255, 255, 255);
+}
+
+.howto_section_content {
+    margin-bottom: 20px;
+}
+
+.howto_section_content h2 {
+    font-size: 40px;
+    margin-bottom: 10px;
+    padding-top: 20px;
+    margin-left: 25%;
+}
+
+.howto_section_content p {
+    font-size: 25px;
+    line-height: 1.5;
+}
+
+.steps {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3%;
+}
+
+.step1,
+.step2,
+.step3 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 3%;
+    width: 20%;
+}
+
+.event_section {
+    width: 100%;
+    background-color: rgb(213, 213, 213);
+    padding: 20px;
+    overflow: hidden;
+
+}
+
+.event_section h2 {
+    font-size: 40px;
+    margin-bottom: 3%;
+    text-align: center;
+
+
+}
+
+.event_container {
+    display: flex;
+    overflow-x: auto;
+    background-color: rgb(213, 213, 213);
+    gap: 20px;
+}
+
+.event_item {
+    flex: 0 0 auto;
+    width: 500px;
+    height: 200px;
+    background-color: #242424;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #999;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    text-align: center;
+    line-height: 1.2;
+}
+
+/*Login*/
+
+.showcase {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.showcase_content {
+    position: relative;
+    margin: 15px;
+    background: rgb(255, 255, 255, 0.95);
+    border-radius: 20px;
+    box-shadow: 0 14px 24px rgba(72, 33, 100, 0.8);
+    padding: 30px;
+    text-align: center;
+}
+
+.form {
+    padding: 40px;
+    margin: 20px;
+
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+}
+
+.username,
+.email,
+.password {
+    width: 100%;
+    padding: 10px;
+    margin: 10px;
+    border: 3px solid rgb(32, 32, 32);
+    box-shadow: 0 5px 10px rgb(72, 33, 100);
+    border-radius: 5px;
+}
+
+.remember {
+    display: flex;
+    padding-left: 7px;
+    align-items: left;
+}
+
+.actions button {
+    padding: 15px 30px;
+    width: 200px;
+    background: rgb(32, 32, 32);
+    box-shadow: 0 5px 10px rgb(72, 33, 100);
+    color: rgb(213, 213, 213);
+    border-radius: 20px;
+    border: none;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    flex: 1;
+}
+
+.actions button:hover {
+    box-shadow: 0 10px 15px rgb(72, 33, 100);
+    background: #D5D5D5;
+    color: rgb(32, 32, 32);
+}
+
+.actions button:active {
+    transform: scale(0.95);
+}
+
+#google_icon {
+    width: 30px;
+}
+
+
+.ask_signup {
+    position: relative;
+    margin: 15px;
+    background: rgb(255, 255, 255, 0.95);
+    border-radius: 20px;
+    box-shadow: 0 14px 24px rgba(72, 33, 100, 0.8);
+    padding: 30px;
+    text-align: center;
+}
+
+.ask_login {
+    position: relative;
+    margin: 15px;
+    background: rgb(255, 255, 255, 0.95);
+    border-radius: 20px;
+    box-shadow: 0 14px 24px rgba(72, 33, 100, 0.8);
+    padding: 30px;
+    text-align: center;
+}
+
+/*Profile*/
+
+.showcase_2 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.showcase_content_2 {
+    position: relative;
+    margin: 15px;
+    background: rgb(255, 255, 255, 0.95);
+    border-radius: 20px;
+    box-shadow: 0 14px 24px rgba(72, 33, 100, 0.8);
+    padding: 60px;
+    text-align: center;
+}
+
+.profile_picture {
+    width: 100px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+    background-color: rgb(32, 32, 32);
+}
+
+.showcase_2 h2 {
+    font-size: 40px;
+    margin-bottom: 3%;
+    text-align: center;
+}
+
+.showcase_2 p {
+    font-weight: bold;
+    margin-bottom: 3%;
+    text-align: center;
+    margin-top: 30%;
+    margin-bottom: 30%;
+}
+
+.logout_button {
+    padding: 15px 30px;
+    background: rgb(32, 32, 32);
+    box-shadow: 0 14px 24px rgb(72, 33, 100);
+    color: rgb(213, 213, 213);
+    border-radius: 20px;
+    border: none;
+    font-size: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    flex: 1;
+
+}
+
+.logout_button:hover:hover {
+    box-shadow: 0 14px 24px rgb(72, 33, 100);
+    background: rgb(72, 33, 100); 
+}
+
+.logout_button:active {
+    transform: scale(0.95);
+}
+
+/*Estatistica*/
+
+.body_estatisticas {
+    background-image: url(img/Lisbon_map.png);
+    display: flex;
+    flex-direction: column;
+    /* Change to column layout */
+    align-items: center;
+    overflow: visible;
+    padding-top: 20px;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.chart-column {
+    display: flex;
+    flex-direction: column;
+    /* Ensure charts are in a column layout */
+    width: 100%;
+    max-width: 800px;
+    /* Adjust max-width to suit your design */
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.chart-container {
+    background-color: rgb(199, 199, 199);
+    border-radius: 15px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 20px;
+    margin: 10px 0;
+    /* Adjust margin for vertical spacing */
+}
+
+canvas {
+    width: 100%;
+    height: auto;
+}
