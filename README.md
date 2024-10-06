@@ -3,14 +3,14 @@
 ## Índice
 1. [Resumo do Projeto](#resumo-do-projeto)
 2. [Componente de Cada Disciplina](#componente-de-cada-disciplina)
-3. - [Engenharia de Software](#engenharia-de-software)
+   - [Engenharia de Software](#engenharia-de-software)
    - [Inteligência Artificial](#inteligência-artificial)
    - [Segurança Informática](#segurança-informática)
    - [Sistemas Distribuídos](#sistemas-distribuídos)
-4. [Levantamento dos Requisitos Funcionais](#levantamento-dos-requisitos-funcionais)
-5. [Levantamento dos Requisitos Não Funcionais](#levantamento-dos-requisitos-não-funcionaiss)
-6. [Use Cases](#use-cases)
-7. [Contribuintes](#contribuintes)
+3. [Levantamento dos Requisitos Funcionais](#levantamento-dos-requisitos-funcionais)
+4. [Levantamento dos Requisitos Não Funcionais](#levantamento-dos-requisitos-não-funcionais)
+5. [Use Cases](#use-cases)
+6. [Contribuintes](#contribuintes)
 
 ---
 
