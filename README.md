@@ -58,19 +58,19 @@ A escalabilidade e robustez do sistema serão garantidas através de uma arquite
 
 ## Levantamento dos Requisitos Funcionais
 
--Mapa interativo de Lisboa, onde os utilizadores podem visualizar os QR Codes disponíveis.
--Criação de eventos que podem incluir QR Codes específicos e personalizados para o evento.
--Recomendações de QR Codes e rotas otimizadas através de IA.
--Distribuição e otimização de QR Codes em eventos de grande escala, para maximizar a interação com os participantes. (Não executada para fins académicos)
+- Mapa interativo de Lisboa, onde os utilizadores podem visualizar os QR Codes disponíveis.
+- Criação de eventos que podem incluir QR Codes específicos e personalizados para o evento.
+- Recomendações de QR Codes e rotas otimizadas através de IA.
+- Distribuição e otimização de QR Codes em eventos de grande escala, para maximizar a interação com os participantes. (Não executada para fins académicos)
 
 ---
 
 ## Levantamento dos Requisitos Não Funcionais
 
--Desempenho: O sistema deve carregar o mapa e os QR Codes rapidamente, mesmo com um grande volume de utilizadores.
--Segurança: Proteção rigorosa dos dados dos utilizadores com encriptação e medidas de prevenção contra ataques.
--Escalabilidade: A arquitetura distribuída deve permitir que o sistema se expanda conforme necessário.
--Usabilidade: A interface deve ser intuitiva e fácil de usar. (Este requesito já foi tackled no semestre passado, mas nós aquerditamos que podemos e devemos melhorar este campo)
+- Desempenho: O sistema deve carregar o mapa e os QR Codes rapidamente, mesmo com um grande volume de utilizadores.
+- Segurança: Proteção rigorosa dos dados dos utilizadores com encriptação e medidas de prevenção contra ataques.
+- Escalabilidade: A arquitetura distribuída deve permitir que o sistema se expanda conforme necessário.
+- Usabilidade: A interface deve ser intuitiva e fácil de usar. (Este requesito já foi tackled no semestre passado, mas nós aquerditamos que podemos e devemos melhorar este campo)
 
 ---
 
