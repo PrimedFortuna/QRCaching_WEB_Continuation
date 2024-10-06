@@ -7,7 +7,8 @@
    - [Inteligência Artificial](#inteligência-artificial)
    - [Segurança Informática](#segurança-informática)
    - [Sistemas Distribuídos](#sistemas-distribuídos)
-4. [Contribuintes](#contribuintes)
+4. [Use Cases](#usecases)
+5. [Contribuintes](#contribuintes)
 
 ---
 
@@ -56,6 +57,10 @@ Para garantir a escalabilidade do sistema e uma experiência contínua para os u
 - Balanceamento de carga entre servidores para distribuir o tráfego de forma eficiente.
 
 ---
+
+## Use Cases
+
+![image](https://github.com/user-attachments/assets/d6501131-a8a8-426a-821a-c0a42d904a64)
 
 ## Contribuintes
 
