@@ -7,14 +7,16 @@
    - [Inteligência Artificial](#inteligência-artificial)
    - [Segurança Informática](#segurança-informática)
    - [Sistemas Distribuídos](#sistemas-distribuídos)
-4. [Use Cases](#use-cases)
-5. [Contribuintes](#contribuintes)
+4. [Levantamento dos Requisitos Funcionais](#levantamento-dos-requisitos-funcionais)
+5. [Levantamento dos Requisitos Não Funcionais](#levantamento-dos-requisitos-não-funcionaiss)
+6. [Use Cases](#use-cases)
+7. [Contribuintes](#contribuintes)
 
 ---
 
 ## Resumo do Projeto
 
-No seguimento do projeto QR-Caching_Web, a nova fase do desenvolvimento visa a integração de conceitos avançados de Inteligência Artificial, Segurança Informática, Engenharia de Software e Sistemas Distribuídos, permitindo aprimorar a experiência do utilizador e a robustez do sistema. Esta fase do projeto vai além da criação e visualização de rotas de QR Codes, acrescentando funcionalidades inteligentes, maior segurança dos dados e uma arquitetura mais distribuída e escalável.
+O projeto QR Caching é uma iniciativa que visa promover o turismo de forma intuitiva e interativa, utilizando códigos QR espalhados por pontos estratégicos de Lisboa. Além disso, tem como objetivo criar uma pseudo rede social, permitindo que os utilizadores partilhem as suas experiências e interajam entre si ao longo dos percursos. O sistema também é projetado para ser usado em eventos, como a WebSummit, oferecendo aos participantes uma forma dinâmica e inovadora de explorar o espaço através da criação de rotas de QR Codes. Através de uma aplicação móvel, os utilizadores podem dar scan aos códigos QR, enquanto o site oferece uma interface para a visualização do mapa, integração de inteligência artificial para otimização de rotas, e gestão de eventos.
 
 ---
 
@@ -22,39 +24,53 @@ No seguimento do projeto QR-Caching_Web, a nova fase do desenvolvimento visa a i
 
 ### Engenharia de Software
 
-A disciplina de Engenharia de Software será aplicada através de boas práticas de desenvolvimento e documentação. Serão criados diagramas de arquitetura e fluxos de dados para detalhar as interações entre os diferentes componentes do sistema. Além disso, serão aplicadas metodologias ágeis no processo de desenvolvimento, garantindo um ciclo de feedback rápido e contínuo.
+A engenharia de software desempenha um papel essencial no desenvolvimento deste projeto, assegurando que o processo seja estruturado, eficiente e fácil de manter.
 
 #### Funcionalidades:
-- Implementação de testes automáticos.
-- Aplicação de metodologias ágeis no desenvolvimento e gestão do projeto.
+- A adoção de metodologias ágeis para um desenvolvimento flexível, com iterações frequentes e foco no feedback contínuo.
+- A criação de diagramas de arquitetura e fluxos de dados que descrevem como os componentes do sistema interagem, o que inclui a base de dados de QR Codes, o sistema de recomendação e o mapa interativo.
 
 ### Inteligência Artificial
 
-Na componente de Inteligência Artificial, será integrada uma funcionalidade de recomendação automática de QR Codes e rotas para os utilizadores. Utilizando algoritmos de machine learning, o sistema irá aprender com o comportamento dos utilizadores e sugerir QR Codes que possam ser de interesse com base nas suas interações passadas, histórico de eventos e preferências.
-
-Além disso, nos eventos, será implementada uma IA responsável pela distribuição inteligente de QR Codes pelo espaço do evento. Esta funcionalidade permitirá que os organizadores de eventos otimizem a localização dos QR Codes, assegurando que a sua disposição maximize a interação com os participantes e facilita a criação de rotas lógicas e convenientes dentro do espaço.
+O papel da Inteligência Artificial no projeto ainda está em fase de definição, com várias ideias preliminares a serem consideradas.
 
 #### Funcionalidades:
-- Recomendação de rotas otimizadas.
-- Sugerir QR Codes relevantes com base em preferências.
-- Previsão de eventos futuros que possam interessar aos utilizadores.
-- Distribuição inteligente de QR Codes pelo espaço do evento, maximizando a eficiência da sua utilização.
+- Possível método anti-spoofing: Utilizar IA para garantir a autenticidade da leitura dos QR Codes, prevenindo falsificações ou tentativas de burlar o sistema (spoofing).
+- Possível pathfinding: IA aplicada para calcular rotas otimizadas, sugerindo os melhores caminhos para os utilizadores com base na sua localização atual e nos QR Codes disponíveis. Esta funcionalidade poderia também ser usada para facilitar a navegação em eventos como a WebSummit, ajudando os participantes a encontrar rotas lógicas e eficientes dentro de grandes espaços.
 
 ### Segurança Informática
 
-A segurança da informação será reforçada com a implementação de várias medidas avançadas. A encriptação dos dados será uma prioridade, tanto para a comunicação entre o cliente e o servidor como para os dados armazenados. Será também implementada uma verificação de segurança para proteger contra ataques, como Cross-Site Scripting (XSS), garantindo a confidencialidade e integridade dos dados dos utilizadores.
+A proteção dos dados dos utilizadores é uma prioridade no projeto. Para isso, serão implementadas várias medidas de segurança.
 
 #### Funcionalidades:
-- Encriptação de dados sensíveis.
-- Proteção contra ataques comuns.
+- Encriptação de dados sensíveis, tanto durante a transmissão entre o cliente e o servidor, quanto no armazenamento da base de dados.
+- Monitorização de segurança para identificar e mitigar potenciais vulnerabilidades.
 
 ### Sistemas Distribuídos
 
-Para garantir a escalabilidade do sistema e uma experiência contínua para os utilizadores, será implementada uma arquitetura distribuída. Os servidores de backend serão distribuídos de modo a permitir que o sistema seja escalável e resistente a falhas.
+A escalabilidade e robustez do sistema serão garantidas através de uma arquitetura distribuída, o que permitirá a operação contínua e eficiente mesmo em períodos de alta demanda.
 
 #### Funcionalidades:
-- Implementação de servidores distribuídos para garantir a escalabilidade.
-- Balanceamento de carga entre servidores para distribuir o tráfego de forma eficiente.
+- Distribuição dos servidores de backend para garantir que o sistema possa suportar um número de utilizadores elevado simultaneamente, sem comprometer o desempenho.
+- Balanceamento de carga entre containers num servidor para assegurar que o tráfego seja distribuído de forma eficiente, evitando sobrecarga em qualquer ponto do sistema.
+
+---
+
+## Levantamento dos Requisitos Funcionais
+
+-Mapa interativo de Lisboa, onde os utilizadores podem visualizar os QR Codes disponíveis.
+-Criação de eventos que podem incluir QR Codes específicos e personalizados para o evento.
+-Recomendações de QR Codes e rotas otimizadas através de IA.
+-Distribuição e otimização de QR Codes em eventos de grande escala, para maximizar a interação com os participantes. (Não executada para fins académicos)
+
+---
+
+## Levantamento dos Requisitos Não Funcionais
+
+-Desempenho: O sistema deve carregar o mapa e os QR Codes rapidamente, mesmo com um grande volume de utilizadores.
+-Segurança: Proteção rigorosa dos dados dos utilizadores com encriptação e medidas de prevenção contra ataques.
+-Escalabilidade: A arquitetura distribuída deve permitir que o sistema se expanda conforme necessário.
+-Usabilidade: A interface deve ser intuitiva e fácil de usar. (Este requesito já foi tackled no semestre passado, mas nós aquerditamos que podemos e devemos melhorar este campo)
 
 ---
 
