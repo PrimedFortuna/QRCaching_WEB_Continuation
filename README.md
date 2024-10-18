@@ -70,7 +70,7 @@ A escalabilidade e robustez do sistema serão garantidas através de uma arquite
 - Desempenho: O sistema deve carregar o mapa e os QR Codes rapidamente, mesmo com um grande volume de utilizadores.
 - Segurança: Proteção rigorosa dos dados dos utilizadores com encriptação e medidas de prevenção contra ataques.
 - Escalabilidade: A arquitetura distribuída deve permitir que o sistema se expanda conforme necessário.
-- Usabilidade: A interface deve ser intuitiva e fácil de usar. (Este requesito já foi tackled no semestre passado, mas nós aquerditamos que podemos e devemos melhorar este campo)
+- Usabilidade: A interface deve ser intuitiva e fácil de usar. (Este requesito já foi tackled no semestre passado, mas nós acreditamos que podemos e devemos melhorar este campo)
 
 ---
 
