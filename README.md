@@ -1,4 +1,4 @@
-# Relatório - QR-Caching_Web (Continuação)
+# QR-Caching_Web
 
 ## Índice
 1. [Resumo do Projeto](#resumo-do-projeto)
@@ -10,7 +10,10 @@
 3. [Levantamento dos Requisitos Funcionais](#levantamento-dos-requisitos-funcionais)
 4. [Levantamento dos Requisitos Não Funcionais](#levantamento-dos-requisitos-não-funcionais)
 5. [Use Cases](#use-cases)
-6. [Contribuintes](#contribuintes)
+6. [Guiões e Personas](#guiões-e-personas)
+7. [Descrição da Arquitetura Tecnológica](#descrição-da-arquitetura-tecnológica)
+8. [Plano de Testes para Integração do Sistema](#plano-de-testes-para-integração-do-sistema)
+9. [Contribuintes](#contribuintes)
 
 ---
 
@@ -67,10 +70,10 @@ A escalabilidade e robustez do sistema serão garantidas através de uma arquite
 
 ## Levantamento dos Requisitos Não Funcionais
 
-- Desempenho: O sistema deve carregar o mapa e os QR Codes rapidamente, mesmo com um grande volume de utilizadores.
-- Segurança: Proteção rigorosa dos dados dos utilizadores com encriptação e medidas de prevenção contra ataques.
-- Escalabilidade: A arquitetura distribuída deve permitir que o sistema se expanda conforme necessário.
-- Usabilidade: A interface deve ser intuitiva e fácil de usar. (Este requesito já foi tackled no semestre passado, mas nós acreditamos que podemos e devemos melhorar este campo)
+- **Desempenho**: O sistema deve carregar o mapa e os QR Codes rapidamente, mesmo com um grande volume de utilizadores.
+- **Segurança**: Proteção rigorosa dos dados dos utilizadores com encriptação e medidas de prevenção contra ataques.
+- **Escalabilidade**: A arquitetura distribuída deve permitir que o sistema se expanda conforme necessário.
+- **Usabilidade**: A interface deve ser intuitiva e fácil de usar. (Este requisito já foi abordado no semestre passado, mas acreditamos que podemos e devemos melhorar este campo)
 
 ---
 
@@ -80,9 +83,72 @@ A escalabilidade e robustez do sistema serão garantidas através de uma arquite
 
 ---
 
+## Guiões e Personas
+
+### Personas
+
+1. **Diogo (Turista)**
+   - **Idade**: 21 anos
+   - **Motivação**: Explorar pontos turísticos culturais em Lisboa de forma eficiente e divertida.
+   - **Interação**: Utiliza a aplicação para otimizar seu tempo e descobrir locais históricos.
+
+2. **Tiago (Organizador de Eventos)**
+   - **Idade**: 30 anos
+   - **Motivação**: Gerir interações de códigos QR para participantes do WebSummit.
+   - **Interação**: Utiliza o sistema para configurar rotas de QR Codes que guiem participantes por grandes espaços.
+
+### Guiões
+
+- **Cenário 1: Experiência do Turista**
+  - O Diogo visita Lisboa e planeja uma rota antes de sair do seu hotel. Ele segue o caminho sugerido pelo website para passar por todas as caches em locais históricos na zona que ele planeja visitar naquele dia.
+
+- **Cenário 2: Configuração de Evento**
+  - O Tiago configura uma série de QR Codes para o WebSummit em locais importantes, como saídas de emergência, casas de banho e hotspots.
+
+---
+
+## Descrição da Arquitetura Tecnológica
+
+### Componentes
+
+1. **Frontend**: Interface interativa para visualização do mapa e gestão de eventos.
+2. **Backend**: Processa dados e comunica-se com a base de dados e serviços auxiliares.
+3. **Base de Dados (MongoDB)**: Armazena todos os dados relacionados a códigos QR, eventos e interações de utilizadores.
+4. **Containers**: Cada componente opera num container Docker separado para modularidade e tolerância a falhas.
+
+### Configuração no Ubuntu Server
+
+- **Sistema Operativo**: Ubuntu Server
+- **Orquestração**: Docker Compose para gerir containers do backend, MongoDB e outros serviços.
+- **Comunicação**: Rede interna Docker para garantir interações seguras e eficientes entre serviços.
+
+---
+
+## Plano de Testes para Integração do Sistema
+
+### Objetivos
+
+- Validar a comunicação entre o backend e o MongoDB.
+- Garantir a consistência de dados entre os componentes.
+
+### Cenários de Teste
+
+1. **Acesso à Base de Dados**:
+   - **Ação**: Consultar MongoDB por uma lista de códigos QR.
+   - **Resultado Esperado**: O backend retorna os dados corretamente em até 100ms.
+
+2. **Integração Frontend**:
+   - **Ação**: O utilizador seleciona um QR Code no mapa.
+   - **Resultado Esperado**: O sistema exibe os detalhes do código QR em tempo real.
+
+3. **Gestão de Eventos**:
+   - **Ação**: Adicionar um novo evento com múltiplos códigos QR.
+   - **Resultado Esperado**: O evento é salvo e visível no sistema.
+
+---
+
 ## Contribuintes
 
 - **João Moniz (Número 20220550)**
   
 - **Tomás Salgueiro (Número 20220589)**
-  
