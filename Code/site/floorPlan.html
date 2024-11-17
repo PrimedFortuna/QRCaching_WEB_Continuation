@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <link rel="icon" href="Logo_mini.png">
+    <title>Events</title>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <a href="index.html"><img src="img/Logo_EXT_BlackAndPurple_rmbk.png" alt="Logo" class="logo"></a>
+        </nav>
+    </header>
+    <main>
+        <div class="map-background">
+            <img src="img/Lisbon_map_full.png" alt="Map Background" class="map-background-img">
+        </div>
+        <div class="svg-container">
+            <!-- Hardcoded SVG -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+                <g id="layer1">
+                    <!-- Non-Walkable Area -->
+                    <rect style="fill:#ff5454;stroke:#000000;stroke-width:1" id="rect1" width="800" height="600" x="0"
+                        y="0" class="non-walkable" />
+                    <!-- Walkable Area -->
+                    <rect style="fill:#99ff54;stroke:#000000;stroke-width:1" id="rect2" width="700" height="500" x="50"
+                        y="50" class="walkable" />
+
+                    <!-- QR Codes within the SVG -->
+                    <image x="100" y="100" width="50" height="50"
+                        href="https://via.placeholder.com/150/FF0000/FFFFFF?text=QR+1" id="qr1" />
+                    <image x="300" y="150" width="50" height="50"
+                        href="https://via.placeholder.com/150/FF0000/FFFFFF?text=QR+2" id="qr2" />
+                    <image x="450" y="250" width="50" height="50"
+                        href="https://via.placeholder.com/150/FF0000/FFFFFF?text=QR+3" id="qr3" />
+                    <image x="200" y="350" width="50" height="50"
+                        href="https://via.placeholder.com/150/FF0000/FFFFFF?text=QR+4" id="qr4" />
+                    <image x="650" y="450" width="50" height="50"
+                        href="https://via.placeholder.com/150/FF0000/FFFFFF?text=QR+5" id="qr5" />
+                </g>
+            </svg>
+        </div>
+
+        <!-- User Input Section -->
+        <div class="input-section">
+            <h2>Select QR Codes to Collect</h2>
+            <form id="path-form">
+                <div id="qr-checkboxes">
+                    <!-- Checkboxes will be dynamically added -->
+                </div>
+                <br>
+                <br>
+                <div class="actions">
+                    <button type="submit">Find Path</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Path Output -->
+        <div id="path-output"></div>
+    </main>
+
+    <footer>
+    </footer>
+    <script src="floorPlan.js"></script>
+</body>
+
+</html>
