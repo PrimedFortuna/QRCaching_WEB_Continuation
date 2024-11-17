@@ -145,6 +145,24 @@ A escalabilidade e robustez do sistema serão garantidas através de uma arquite
    - **Ação**: Adicionar um novo evento com múltiplos códigos QR.
    - **Resultado Esperado**: O evento é salvo e visível no sistema.
 
+4. **Componentes de IA**:
+   -Para garantir que os componentes de IA funcionem corretamente e se
+integrem bem com o sistema final, será realizado um plano de testes
+com várias fases: Testes Unitários: Algoritmo A: Testar a precisão do
+algoritmo A em encontrar o caminho mais curto entre pontos,
+considerando diferentes mapas.
+   *Testes de Usabilidade:
+      -Interface do Usuário: Testar se a interface permite ao usuário selecionar
+   os QR codes a serem coletados de forma intuitiva.
+      -Ajustes no Sistema: Testar se, ao modificar a disposição dos QR codes ou
+   alterar o caminho no mapa, o sistema consegue reagir de forma
+   eficiente, recalculando o percurso e reconfigurando a distribuição dos QR
+   codes.
+   *Testes de Performance:
+   -Escalabilidade: Testar como o sistema se comporta com diferentes
+números de QR codes e tamanhos de espaço, garantindo que a
+performance não seja comprometida.
+
 ---
 
 ## Contribuintes
