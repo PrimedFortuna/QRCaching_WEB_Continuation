@@ -1,3 +1,5 @@
+import CryptoJS from 'crypto-js';
+
 document.addEventListener('DOMContentLoaded', () => {
     // Sign up function
     async function signUp() {
@@ -13,6 +15,13 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        // Validate email format using a simple regex
+        const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (!emailRegex.test(email)) {
+            alert("Please enter a valid email address.");
+            return;
+        }
+
         // Validate password
         const specialCharRegex = /[^a-zA-Z0-9.!]/;
         if (specialCharRegex.test(password)) {
@@ -20,35 +29,38 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        // Hash the password before sending it
+        const hashedPassword = CryptoJS.SHA256(password).toString();
+
         // Create user object
         const user = {
             user_name: username,
             user_email: email,
-            user_password: password
+            user_password: hashedPassword,
         };
 
-        // Send POST request to the server
-        fetch('/users/signup', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(user)
-        })
-        .then(response => response.json())
-        .then(data => {
+        try {
+            // Send POST request to the server
+            const response = await fetch('/users/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(user),
+            });
+
+            const data = await response.json();
+
             if (data._id) {
                 alert("User created successfully!");
-                window.location.href = "/login.html";
-                // Redirect or perform any other actions upon success
+                window.location.href = "/login.html";  // Redirect to login page
             } else {
-                alert("Error: " + data.message);
+                alert("Error: " + data.message);  // Handle errors from the server
             }
-        })
-        .catch(error => {
-            console.error('Error:', error);
+        } catch (error) {
+            console.error('Error during signup:', error);
             alert("An error occurred during signup.");
-        });
+        }
     }
 
     // Attach the signUp function to the button click event

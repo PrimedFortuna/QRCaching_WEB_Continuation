@@ -1,9 +1,12 @@
+// Import CryptoJS
+import CryptoJS from 'crypto-js';
+
 document.addEventListener('DOMContentLoaded', () => {
     async function login() {
         // Get the input values
         const email = document.getElementById('email1').value.trim();
-        const password = document.getElementById('password1').value.trim();
-
+        const password = CryptoJS.SHA256(document.getElementById('password1').value.trim()).toString(); // Hash the password
+        
         // Create login object
         const loginData = {
             user_email: email,
@@ -23,10 +26,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = await response.json();
 
             if (response.ok) {
+                sessionStorage.setItem('authToken', data.token); // Store token securely
+                sessionStorage.setItem('userName', data.userName); // Optionally store user info
                 alert('Login successful!');
-                localStorage.setItem('userId', data.userId);
-                localStorage.setItem('userName', data.userName);
-                localStorage.setItem('userEmail', data.userEmail);
                 window.location.href = "/index.html";
             } else {
                 alert('Error: ' + data.message);
