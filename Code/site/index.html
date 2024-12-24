@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <link rel="icon" href="Logo_mini.png">
     <title>Index</title>
 </head>
+
 <body class="body_index">
     <header>
         <nav>
@@ -63,12 +65,19 @@
         </div>
         <div class="event_section">
             <h2>See all the Main Events</h2>
-            <a href="events.html"><div class="event_container">
-                <!-- Subdivs will be dynamically added here -->
-            </div></a>
+            <div class="event_buttons" id="event_buttons"> 
+                <a href="create_event.html"><button class="createbtn" id="createbtn">Create Event</button></a>
+                <a href="accept_events.html"><button class="acceptbtn" id="acceptbtn">Accept events</button></a>
+            </div>
+            <a href="events.html">
+                <div class="event_container">
+                    <!-- Subdivs will be dynamically added here -->
+                </div>
+            </a>
         </div>
     </main>
     <footer></footer>
     <script src="index.js"></script>
 </body>
+
 </html>

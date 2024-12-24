@@ -2,8 +2,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const navButtons1 = document.getElementById('nav_buttons1');
     const navButtons2 = document.getElementById('nav_buttons2');
     const adminButton = document.getElementById('admin_button');
+    const event_buttons = document.getElementById('event_buttons');
+    const acceptbtn = document.getElementById('acceptbtn');
 
-    let isLoggedIn = false;
+    let isLoggedIn = true;
 
 
     if (localStorage.getItem('userId')) {
@@ -12,25 +14,31 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function isAdminUser() { // This function will be called after login
         const userId = localStorage.getItem('userId');
-        if (userId === '665e38a4cf108645778fc6f8' || userId === '665e3f9e26a5eb57cca5c20d') {
+        if (userId === '665e38a4cf108645778fc6f8' || userId === '665e3f9e26a5eb57cca5c20d' || true) {
             adminButton.style.display = 'flex';
+            acceptbtn.style.display = 'flex';
+            return true;
         } else {
             adminButton.style.display = 'none';
+            acceptbtn.style.display = 'none';
+            return false;
         }
     }
 
-    function updateNavButtons() {
+    function updateButtons() {
         if (isLoggedIn) {
             navButtons1.style.display = 'none';
             navButtons2.style.display = 'flex';
+            event_buttons.style.display = 'flex';
             isAdminUser();
         } else {
             navButtons1.style.display = 'flex';
             navButtons2.style.display = 'none';
+            event_buttons.style.display = 'none';
         }
     }
 
-    updateNavButtons();
+    updateButtons();
 
     // Fetch the number of QR codes from the backend
     fetch('http://85.246.91.101/lqrcodes/count')

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <link rel="icon" href="Logo_mini.png">
+    <title>Login</title>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <a href="index.html"><img src="img/Logo_EXT_BlackAndPurple_rmbk.png" alt="Logo" class="logo"></a>
+        </nav>
+    </header>
+    <main>
+        <div class="map-background">
+            <img src="img/Lisbon_map_full.png" alt="Map Background" class="map-background-img">
+            <div class="showcase">
+                <div class="showcase_content">
+                    <form id="createEventForm" enctype="multipart/form-data">
+                        <h2>Create Event</h2>
+
+                        <!-- Event Name -->
+                        <label for="eventName">Event Name</label>
+                        <input type="text" id="eventName" name="eventName" placeholder="Enter event name">
+
+                        <!-- Event Photo -->
+                        <label for="eventPhoto">Event Photo</label>
+                        <input type="file" id="eventPhoto" name="eventPhoto" accept=".png">
+
+                        <!-- Event Map -->
+                        <label for="eventMap">Event Map .svg</label>
+                        <input type="file" id="eventMap" name="eventMap" accept=".svg">
+
+                        <!-- Number of QR Codes -->
+                        <label for="numQRCodes">Number of QR Codes</label>
+                        <input type="number" id="numQRCodes" name="numQRCodes"
+                            placeholder="Enter the number of QR codes" min="1">
+
+                        <!-- Submit Button -->
+                        <button type="submit" aria-label="Submit the form to create an event">Create Event</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </main>
+    <script src="login.js"></script>
+</body>
+
+</html>

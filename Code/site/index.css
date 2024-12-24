@@ -4,6 +4,11 @@ body {
     font-family: Arial, sans-serif;
 }
 
+a {
+    text-decoration: none;
+    color: inherit; 
+}
+
 .body_index {
     overflow-x: hidden;
 }
@@ -39,6 +44,11 @@ main {
     display: none;
     gap: 10px;
     padding: 25px;
+}
+
+.estatisticas-btn,
+.acceptbtn {
+    text-decoration: none;
 }
 
 .login-btn,
@@ -101,6 +111,33 @@ main {
     box-shadow: 0 14px 24px rgb(72, 33, 100);
     background: rgb(32, 32, 32);
     color: rgb(213, 213, 213);
+
+
+}
+
+.createbtn,
+.acceptbtn {
+    padding: 15px 30px;
+    margin-bottom: 35px;
+    margin-left: 15px;
+    background: rgb(32, 32, 32); 
+    box-shadow: 0 14px 24px rgb(72, 33, 100);
+    color: rgb(213, 213, 213); 
+    border-radius: 20px;
+    border: none;
+    font-size: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    flex: 1;
+    text-decoration: none;
+}
+
+.createbtn:hover,
+.acceptbtn:hover {
+    box-shadow: 0 14px 24px rgb(72, 33, 100);
+    background: linear-gradient(to right, rgb(213, 213, 213), rgb(213, 213, 213));
+    color: rgb(0, 0, 0);
+    text-decoration: none;
 
 
 }
@@ -553,3 +590,65 @@ canvas {
     font-size: 18px;
     font-weight: bold;
 }
+
+
+/* Create Event */
+
+#createEventForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;
+    background: rgb(255, 255, 255, 0.95);
+    border-radius: 20px;
+    box-shadow: 0 14px 24px rgba(72, 33, 100, 0.8);
+    width: 90%; 
+    max-width: 500px;
+    margin: 50px auto; 
+    box-sizing: border-box; 
+}
+
+#createEventForm > * {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#createEventForm input[type="text"],
+#createEventForm input[type="file"],
+#createEventForm input[type="number"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 25px;
+    margin-top: 10px;
+    border: 2px solid rgb(32, 32, 32);
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
+    max-width: 100%; 
+}
+
+#createEventForm button {
+    padding: 15px 30px;
+    width: 100%; 
+    max-width: 100%; 
+    background: rgb(32, 32, 32);
+    box-shadow: 0 14px 24px rgb(72, 33, 100);
+    color: rgb(213, 213, 213);
+    border-radius: 20px;
+    border: none;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+/* Additional Styling for Hints */
+.file-hint {
+    font-size: 14px;
+    color: rgb(72, 33, 100);
+    margin-bottom: 10px;
+    text-align: left;
+    width: 100%;
+}
+
+
