@@ -20,10 +20,11 @@ app.use(express.json());
 app.use(cors());
 app.use(express.static(path.join(__dirname, '../site')));
 
-mongoose.connect('mongodb://localhost:27017/myDatabase', {})
+
+mongoose.connect('mongodb://mongo1:27017/myDatabase', {})
     .then(() => {
         console.log('Connected to MongoDB');
-        
+
         app.use('/users', userRoutes);
         app.use('/events', eventRoutes);
         app.use('/lqrcodes', lqrcodeRoutes);
