@@ -1,4 +1,4 @@
-import CryptoJS from './node_modules/crypto-js/index.js';
+import CryptoJS from '../server/node_modules/crypto-js/crypto-js';
 
 document.addEventListener('DOMContentLoaded', () => {
     async function login() {
