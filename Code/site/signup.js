@@ -1,4 +1,4 @@
-import CryptoJS from 'crypto-js';  // Import the library for hashing passwords
+import CryptoJS from 'crypto-js';
 
 document.addEventListener('DOMContentLoaded', () => {
     // Sign up function
