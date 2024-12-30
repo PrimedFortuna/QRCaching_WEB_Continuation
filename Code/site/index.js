@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const event_buttons = document.getElementById('event_buttons');
     const acceptbtn = document.getElementById('acceptbtn');
 
-    let isLoggedIn = true;
+    let isLoggedIn = false;
 
 
     if (localStorage.getItem('userId')) {
@@ -52,6 +52,14 @@ document.addEventListener('DOMContentLoaded', function () {
             console.error('Error fetching QR code count:', error);
         });
 
+    
+    // Fetch the number of events from the backend
+    
+    function getNumberOfEventsFromDatabase() {
+        // Replace with your actual logic to get the number of events
+        return 15; // Example value
+    }
+
     const numberOfEvents = getNumberOfEventsFromDatabase(); // Replace this with your actual function
 
     const eventContainer = document.querySelector('.event_container');
@@ -63,8 +71,4 @@ document.addEventListener('DOMContentLoaded', function () {
         eventContainer.appendChild(div);
     }
 
-    function getNumberOfEventsFromDatabase() {
-        // Replace with your actual logic to get the number of events
-        return 15; // Example value
-    }
 });
