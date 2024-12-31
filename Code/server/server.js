@@ -1,6 +1,5 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const CryptoJS = require('crypto-js');
 const path = require('path');
 const cors = require('cors');
 const bodyParser = require('body-parser');

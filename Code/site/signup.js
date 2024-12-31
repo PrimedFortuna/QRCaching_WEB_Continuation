@@ -1,5 +1,3 @@
-import CryptoJS from '../server/node_modules/crypto-js/crypto-js.js';
-
 document.addEventListener('DOMContentLoaded', () => {
     // Sign up function
     async function signUp() {
@@ -29,38 +27,34 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Hash the password before sending it
-        const hashedPassword = CryptoJS.SHA256(password).toString();
-
         // Create user object
         const user = {
             user_name: username,
             user_email: email,
-            user_password: hashedPassword,
+            user_password: password,
         };
 
-        try {
-            // Send POST request to the server
-            const response = await fetch('/users/signup', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(user),
+        fetch('/users/signup', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data._id) {
+                    alert("User created successfully!");
+                    window.location.href = "/login.html";
+                    // Redirect or perform any other actions upon success
+                } else {
+                    alert("Error: " + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert("An error occurred during signup.");
             });
-
-            const data = await response.json();
-
-            if (data._id) {
-                alert("User created successfully!");
-                window.location.href = "/login.html";  // Redirect to login page
-            } else {
-                alert("Error: " + data.message);  // Handle errors from the server
-            }
-        } catch (error) {
-            console.error('Error during signup:', error);
-            alert("An error occurred during signup.");
-        }
     }
 
     // Attach the signUp function to the button click event
