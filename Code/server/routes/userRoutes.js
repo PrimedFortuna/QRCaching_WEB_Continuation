@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const crypto = require('crypto');
 const User = require('../models/user');
+const Salt = require('../models/salt');
 
 // Create a new user
 router.post('/', async (req, res) => {
@@ -64,6 +66,8 @@ router.delete('/:id', getUser, async (req, res) => {
     }
 });
 
+
+// Signup route
 router.post('/signup', async (req, res) => {
     try {
         // Find the user with the highest user_id
@@ -75,14 +79,30 @@ router.post('/signup', async (req, res) => {
         }
 
         const { user_name, user_email, user_password } = req.body;
+
+        const salt = crypto.randomBytes(16).toString('hex');
+
+        const hashedPassword = crypto
+            .createHmac('sha256', salt)
+            .update(user_password)
+            .digest('hex');
+
         const newUser = new User({
             user_id: nextUserId,
             user_name,
             user_email,
-            user_password
+            user_password: hashedPassword,
         });
 
         const savedUser = await newUser.save();
+
+        const newSalt = new Salt({
+            user_id: savedUser.user_id,
+            salt,
+        });
+
+        await newSalt.save();
+
         res.status(201).json(savedUser);
     } catch (error) {
         res.status(400).json({ message: error.message });
@@ -91,18 +111,32 @@ router.post('/signup', async (req, res) => {
 
 // Login route
 router.post('/login', async (req, res) => {
-    try {
-        const { user_email, user_password } = req.body;
+    const { user_email, user_password } = req.body;
 
-        // Find the user by email
+    try {
+         // Find the user by email
         const user = await User.findOne({ user_email });
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
 
-        // Compare the password with the plain text password stored in the database
-        if (user.user_password !== user_password) {
-            return res.status(401).json({ message: 'Invalid password' });
+        // Retrieve the salt for the user
+        const saltEntry = await Salt.findOne({ user_id: user.user_id });
+        if (!saltEntry) {
+            return res.status(500).json({ message: "Salt not found for user." });
+        }
+
+        const salt = saltEntry.salt;
+
+        // Hash the incoming password with the salt
+        const hashedPassword = crypto
+            .createHmac('sha256', salt)
+            .update(user_password)
+            .digest('hex');
+
+        // Compare the hashed passwords
+        if (hashedPassword !== user.user_password) {
+            return res.status(401).json({ message: "Invalid credentials." });
         }
 
         // User authenticated successfully
