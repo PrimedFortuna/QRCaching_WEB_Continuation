@@ -7,11 +7,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const password = document.getElementById('password').value.trim();
 
         // Validate username
-
         if (username.length < 8) {
             alert("Username must be at least 8 characters long.");
             return;
         }
+
+        
 
         // Validate email format using a simple regex
         const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;

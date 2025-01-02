@@ -80,7 +80,15 @@ router.post('/signup', async (req, res) => {
 
         const { user_name, user_email, user_password } = req.body;
 
-        const salt = crypto.randomBytes(16).toString('hex');
+        //user exists email or name
+        let userExists = await User.findOne({ user_name });
+        if (userExists) {
+            return res.status(400).json({ message: 'Username already exists' });
+        }
+        userExists = await User.findOne({ user_email });
+        if (userExists) {
+            return res.status(400).json({ message: 'User already exists' });
+        }        const salt = crypto.randomBytes(16).toString('hex');
 
         const hashedPassword = crypto
             .createHmac('sha256', salt)
