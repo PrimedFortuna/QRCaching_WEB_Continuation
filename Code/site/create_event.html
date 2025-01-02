@@ -28,17 +28,30 @@
                         <input type="text" id="eventName" name="eventName" placeholder="Enter event name">
 
                         <!-- Event Photo -->
-                        <label for="eventPhoto">Event Photo</label>
-                        <input type="file" id="eventPhoto" name="eventPhoto" accept=".png">
+                        <label for="eventPhoto">Event Photo (URL)</label>
+                        <input type="url" id="eventPhoto" name="eventPhoto"
+                            placeholder="Enter the URL of the event photo">
 
                         <!-- Event Map -->
-                        <label for="eventMap">Event Map .svg</label>
-                        <input type="file" id="eventMap" name="eventMap" accept=".svg">
+                        <label for="eventMap">Event Map (URL)</label> 
+                        <input type="url" id="eventMap" name="eventMap" placeholder="Enter the URL of the event map">
+
+                        <!-- Event SVG -->
+                        <label for="eventSVG">Event Map .svg</label>
+                        <input type="file" id="eventSVG" name="eventSVG" accept=".svg">
 
                         <!-- Number of QR Codes -->
                         <label for="numQRCodes">Number of QR Codes</label>
                         <input type="number" id="numQRCodes" name="numQRCodes"
                             placeholder="Enter the number of QR codes" min="1">
+
+                        <!-- Start Date -->
+                        <label for="startDate">Start Date</label>
+                        <input type="date" id="startDate" name="startDate">
+
+                        <!-- End Date -->
+                        <label for="endDate">End Date</label>
+                        <input type="date" id="endDate" name="endDate">
 
                         <!-- Submit Button -->
                         <button type="submit">Create Event</button>

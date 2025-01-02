@@ -59,8 +59,8 @@ router.patch('/:id', getUser, async (req, res) => {
 // Delete a user
 router.delete('/:id', getUser, async (req, res) => {
     try {
-        await res.user.remove();
-        res.json({ message: 'User deleted' });
+        await res.user.deleteOne(); 
+        res.json({ message: 'User deleted successfully' });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -116,14 +116,14 @@ router.post('/login', async (req, res) => {
     try {
          // Find the user by email
         const user = await User.findOne({ user_email });
-        if (!user) {
+        if (!user) { 
             return res.status(404).json({ message: 'User not found' });
         }
 
         // Retrieve the salt for the user
         const saltEntry = await Salt.findOne({ user_id: user.user_id });
         if (!saltEntry) {
-            return res.status(500).json({ message: "Salt not found for user." });
+            return res.status(500).json({ message: "Error, User Not Found" });
         }
 
         const salt = saltEntry.salt;

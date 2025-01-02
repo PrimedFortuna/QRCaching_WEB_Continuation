@@ -59,10 +59,40 @@ router.patch('/:id', getEvent, async (req, res) => {
 // Delete an event
 router.delete('/:id', getEvent, async (req, res) => {
     try {
-        await res.event.remove();
+        await res.event.deleteOne();
         res.json({ message: 'Event deleted' });
     } catch (error) {
         res.status(500).json({ message: error.message });
+    }
+});
+
+// Create_event
+router.post('/create_event', async (req, res) => {
+    try {
+        const highestEventId = await Event.findOne().sort({ events_id: -1 });
+        let newEventId = 1; // Default value if no user exists yet
+
+        if (highestEventId) {
+            newEventId = highestEventId.events_id + 1;
+        }
+
+        const {events_name, events_map, events_svg, events_num_qrcodes, events_idate, events_fdate} = req.body;
+
+        const newEvent = new Event({
+            events_id: newEventId,
+            events_name: events_name,
+            events_map: events_map,
+            events_svg: events_svg,
+            events_num_qrcodes: events_num_qrcodes,
+            events_idate: events_idate,
+            events_fdate: events_fdate
+        });
+
+        const savedEvent = await newEvent.save();
+
+        res.status(201).json(savedEvent);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
     }
 });
 
@@ -81,3 +111,4 @@ async function getEvent(req, res, next) {
 }
 
 module.exports = router;
+
