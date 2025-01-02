@@ -76,11 +76,12 @@ router.post('/create_event', async (req, res) => {
             newEventId = highestEventId.events_id + 1;
         }
 
-        const {events_name, events_map, events_svg, events_num_qrcodes, events_idate, events_fdate} = req.body;
+        const {events_name, events_photo, events_map, events_svg, events_num_qrcodes, events_idate, events_fdate} = req.body;
 
         const newEvent = new Event({
             events_id: newEventId,
             events_name: events_name,
+            events_photo: events_photo,
             events_map: events_map,
             events_svg: events_svg,
             events_num_qrcodes: events_num_qrcodes,
