@@ -365,10 +365,10 @@ canvas {
     background: rgb(255, 255, 255, 0.95);
     border-radius: 20px;
     box-shadow: 0 14px 24px rgba(72, 33, 100, 0.8);
-    width: 90%; 
+    width: 90%;
     max-width: 500px;
-    margin: 50px auto; 
-    box-sizing: border-box; 
+    margin: 50px auto;
+    box-sizing: border-box;
 }
 
 #createEventForm > * {
@@ -376,9 +376,17 @@ canvas {
     box-sizing: border-box;
 }
 
+#createEventForm label {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
 #createEventForm input[type="text"],
-#createEventForm input[type="file"],
-#createEventForm input[type="number"] {
+#createEventForm input[type="url"],
+#createEventForm input[type="number"],
+#createEventForm input[type="date"],
+#createEventForm input[type="file"] {
     width: 100%;
     padding: 12px;
     margin-bottom: 25px;
@@ -387,13 +395,16 @@ canvas {
     border-radius: 5px;
     font-size: 16px;
     box-sizing: border-box;
-    max-width: 100%; 
+}
+
+#createEventForm input[type="file"] {
+    padding: 10px;
 }
 
 #createEventForm button {
     padding: 15px 30px;
-    width: 100%; 
-    max-width: 100%; 
+    width: 100%;
+    max-width: 100%;
     background: rgb(32, 32, 32);
     box-shadow: 0 14px 24px rgb(72, 33, 100);
     color: rgb(213, 213, 213);
@@ -403,7 +414,14 @@ canvas {
     font-weight: bold;
     cursor: pointer;
     transition: 0.3s ease-in-out;
+    margin-top: 20px;
 }
+
+#createEventForm button:hover {
+    background: rgb(72, 33, 100);
+    box-shadow: 0 14px 24px rgba(72, 33, 100, 0.8);
+}
+
 
 /* Additional Styling for Hints */
 .file-hint {
