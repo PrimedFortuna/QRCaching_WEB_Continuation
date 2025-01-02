@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const eventPhoto = document.getElementById('eventPhoto').value.trim();
         const eventMap = document.getElementById('eventMap').value.trim();
         const eventSvg = document.getElementById('eventSVG').value.trim();
-        const eventQRCodes = document.getElementById('eventQRCodes').value.trim();
+        const eventQRCodes = document.getElementById('numQRCodes').value.trim();
         const eventIDate = document.getElementById('startDate').value.trim();
         const eventFDate = document.getElementById('endDate').value.trim();
 
