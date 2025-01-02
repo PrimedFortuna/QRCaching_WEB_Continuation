@@ -50,6 +50,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 alert("An error occurred during event creation.");
             });
     }
+
+    // Attach the Event creation function to the button click event
+    const signInButton = document.querySelector('.createEvent');
+    if (signInButton) {
+        signInButton.addEventListener('click', (event) => {
+            event.preventDefault();
+            createEvent();
+        });
+    } else {
+        console.error("createEvent button not found.");
+    }
 });
 
 
