@@ -23,6 +23,18 @@ router.get('/', async (req, res) => {
     }
 });
 
+// Get the number of QR codes a user has scanned
+router.get('/count/:userId', async (req, res) => {
+    try {
+        const userId = req.params.userId;
+        const qrCodeCount = await Ulq.countDocuments({ ulq_user_id: userId });
+        res.status(200).json({ qrCodeCount });
+    } catch (error) {
+        console.error('Error fetching QR code count:', error);
+        res.status(500).json({ message: error.message });
+    }
+});
+
 // Get a single ulq
 router.get('/:id', getUlq, (req, res) => {
     res.json(res.ulq);
@@ -45,18 +57,6 @@ router.delete('/:id', getUlq, async (req, res) => {
         await res.ulq.remove();
         res.json({ message: 'Ulq deleted' });
     } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-});
-
-// Get the number of QR codes a user has scanned
-router.get('/count/:userId', async (req, res) => {
-    try {
-        const userId = req.params.userId;
-        const qrCodeCount = await Ulq.countDocuments({ ulq_user_id: userId });
-        res.status(200).json({ qrCodeCount });
-    } catch (error) {
-        console.error('Error fetching QR code count:', error);
         res.status(500).json({ message: error.message });
     }
 });

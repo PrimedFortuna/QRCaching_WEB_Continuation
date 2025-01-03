@@ -42,7 +42,7 @@ router.patch('/:id', getSalt, async (req, res) => {
 // Delete a salt
 router.delete('/:id', getSalt, async (req, res) => {
     try {
-        await res.salt.remove();
+        await res.salt.deleteOne();
         res.json({ message: 'Salt deleted' });
     } catch (error) {
         res.status(500).json({ message: error.message });

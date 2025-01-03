@@ -26,48 +26,6 @@ router.get('/', async (req, res) => {
     }
 });
 
-// Get a single user
-router.get('/:id', getUser, (req, res) => {
-    res.json(res.user);
-});
-
-// Update a user
-router.patch('/:id', getUser, async (req, res) => {
-    if (req.body.user_name != null) {
-        res.user.user_name = req.body.user_name;
-    }
-    if (req.body.user_phone != null) {
-        res.user.user_phone = req.body.user_phone;
-    }
-    if (req.body.user_bdate != null) {
-        res.user.user_bdate = req.body.user_bdate;
-    }
-    if (req.body.user_password != null) {
-        res.user.user_password = req.body.user_password;
-    }
-    if (req.body.user_email != null) {
-        res.user.user_email = req.body.user_email;
-    }
-    try {
-        const updatedUser = await res.user.save();
-        res.json(updatedUser);
-    } catch (error) {
-        res.status(400).json({ message: error.message });
-    }
-});
-
-// Delete a user
-router.delete('/:id', getUser, async (req, res) => {
-    try {
-        await res.user.deleteOne();
-        await Salt.deleteOne({ user_id: res.user.user_id });
-        res.json({ message: 'User deleted successfully' });
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-});
-
-
 // Signup route
 router.post('/signup', async (req, res) => {
     try {
@@ -163,6 +121,47 @@ router.post('/login', async (req, res) => {
 
     } catch (error) {
         console.error('Error during login:', error);
+        res.status(500).json({ message: error.message });
+    }
+});
+
+// Get a single user
+router.get('/:id', getUser, (req, res) => {
+    res.json(res.user);
+});
+
+// Update a user
+router.patch('/:id', getUser, async (req, res) => {
+    if (req.body.user_name != null) {
+        res.user.user_name = req.body.user_name;
+    }
+    if (req.body.user_phone != null) {
+        res.user.user_phone = req.body.user_phone;
+    }
+    if (req.body.user_bdate != null) {
+        res.user.user_bdate = req.body.user_bdate;
+    }
+    if (req.body.user_password != null) {
+        res.user.user_password = req.body.user_password;
+    }
+    if (req.body.user_email != null) {
+        res.user.user_email = req.body.user_email;
+    }
+    try {
+        const updatedUser = await res.user.save();
+        res.json(updatedUser);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+});
+
+// Delete a user
+router.delete('/:id', getUser, async (req, res) => {
+    try {
+        await res.user.deleteOne();
+        await Salt.deleteOne({ user_id: res.user.user_id });
+        res.json({ message: 'User deleted successfully' });
+    } catch (error) {
         res.status(500).json({ message: error.message });
     }
 });
