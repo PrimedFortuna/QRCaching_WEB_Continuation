@@ -14,11 +14,9 @@ document.addEventListener('DOMContentLoaded', function () {
                     eventBox.className = 'eventsToAccept_box';
 
                     eventBox.innerHTML = `
-                    <img src="${event.events_photo}" alt="Event Photo">
                     <h3>${event.events_name}</h3>
                     <p>Event Photo: <a href="${event.events_photo}" target="_blank">View Photo</a></p>
                     <p>Event Map: <a href="${event.events_map}" target="_blank">View Map</a></p>
-                    <p>Event SVG: <img src="${event.events_svg}" alt="Event SVG"></p>
                     <p>Number of QR Codes: ${event.events_num_qrcodes}</p>                    
                     <p>Latitude: ${event.events_latitude}</p>
                     <p>Longitude: ${event.events_longitude}</p>
@@ -60,30 +58,40 @@ document.addEventListener('DOMContentLoaded', function () {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(eventId)
+                body: JSON.stringify({ id: eventId }) // Send the ID as an object with 'id' key
             });
-
-            await response.json();
-
+    
+            // Check if response is OK (status 200-299)
+            if (!response.ok) {
+                throw new Error(`Failed to accept event, status: ${response.status}`);
+            }
+    
+            const data = await response.json();
+            console.log(data); // Optionally log the response
+    
         } catch (error) {
             console.error('Error accepting event:', error);
-            alert('An error occurred during event accept.');
+            alert('An error occurred during event acceptance.');
         }
     }
 
     // Handle decline event
     async function handleDeclineEvent(eventId) {
         try {
-            const response = await fetch('/events/delete', {
-                method: 'POST',
+            const response = await fetch(`/events/${eventId}`, {
+                method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(eventId)
+                }
             });
 
-            await response.json();
-
+            if (!response.ok) {
+                throw new Error(`Failed to decline event, status: ${response.status}`);
+            }
+    
+            const data = await response.json();
+            console.log(data); 
+    
         } catch (error) {
             console.error('Error deleting event:', error);
             alert('An error occurred during deleting event.');

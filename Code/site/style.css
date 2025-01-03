@@ -425,8 +425,17 @@ canvas {
 
 /*Accept Event*/
 
+.eventsToAccept_showcase {
+    position: absolute;
+    z-index: 2;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 .eventsToAccept_list {
-    display: flex;
+    display: absolute;
+    top: 30%;
     flex-wrap: wrap;
     gap: 20px;
     justify-content: center;
@@ -468,30 +477,24 @@ canvas {
 }
 
 .eventsToAccept_box button {
-    padding: 10px 15px;
+    padding: 15px 30px;
+    width: 100%;
+    max-width: 100%;
+    background: rgb(32, 32, 32);
+    box-shadow: 0 14px 24px rgb(72, 33, 100);
+    color: rgb(213, 213, 213);
+    border-radius: 20px;
     border: none;
-    border-radius: 5px;
+    font-size: 20px;
+    font-weight: bold;
     cursor: pointer;
-    font-size: 14px;
-    transition: background-color 0.3s ease;
+    transition: 0.3s ease-in-out;
+    margin-top: 20px;
 }
 
-.eventsToAccept_box .accept-btn {
-    background-color: #4CAF50;
-    color: white;
-}
-
-.eventsToAccept_box .accept-btn:hover {
-    background-color: #45a049;
-}
-
-.eventsToAccept_box .decline-btn {
-    background-color: #f44336;
-    color: white;
-}
-
-.eventsToAccept_box .decline-btn:hover {
-    background-color: #e53935;
+.eventsToAccept_box button:hover {
+    background: rgb(72, 33, 100);
+    box-shadow: 0 14px 24px rgba(72, 33, 100, 0.8);
 }
 
 /* Additional Styling for Hints */
