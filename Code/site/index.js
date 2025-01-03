@@ -5,15 +5,17 @@ document.addEventListener('DOMContentLoaded', function () {
     const event_buttons = document.getElementById('event_buttons');
     const acceptbtn = document.getElementById('acceptbtn');
 
+    let isLoggedIn
+    
     if (localStorage.getItem('userId')) {
         isLoggedIn = true;
+    } else {
+        isLoggedIn = false;
     }
 
     function isAdminUser() { // This function will be called after login
         const userId = localStorage.getItem('userId');
         if (userId === '67760b3001d708c46378eb2b') {
-            adminButton.style.display = 'flex';
-            acceptbtn.style.display = 'flex';
             return true;
         } else {
             adminButton.style.display = 'none';
