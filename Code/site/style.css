@@ -423,6 +423,77 @@ canvas {
 }
 
 
+/*Accept Event*/
+
+.eventsToAccept_list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.eventsToAccept_box {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    padding: 20px;
+    text-align: center;
+}
+
+.eventsToAccept_box img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.eventsToAccept_box h3 {
+    margin: 10px 0;
+    font-size: 18px;
+    color: #333;
+}
+
+.eventsToAccept_box p {
+    margin: 5px 0;
+    color: #555;
+}
+
+.eventsToAccept_box .btn-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.eventsToAccept_box button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.eventsToAccept_box .accept-btn {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.eventsToAccept_box .accept-btn:hover {
+    background-color: #45a049;
+}
+
+.eventsToAccept_box .decline-btn {
+    background-color: #f44336;
+    color: white;
+}
+
+.eventsToAccept_box .decline-btn:hover {
+    background-color: #e53935;
+}
+
 /* Additional Styling for Hints */
 .file-hint {
     font-size: 14px;

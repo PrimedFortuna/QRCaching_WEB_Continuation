@@ -45,6 +45,16 @@ router.get('/confirmed', async (req, res) => {
     }
 });
 
+// Get all unconfirmed events
+router.get('/unconfirmed', async (req, res) => {
+    try {
+        const events = await Event.find({ events_confirmed: false });
+        res.json(events);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
 // Create a new event with an automatically assigned ID
 router.post('/create_event', async (req, res) => {
     try {
@@ -70,6 +80,23 @@ router.post('/create_event', async (req, res) => {
 
         const savedEvent = await newEvent.save();
         res.status(201).json(savedEvent);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+});
+
+// Accept an event
+router.post('/accept_event', async (req, res) => {
+    try {
+        const sanitizedBody = sanitize(req.body);
+        const event = await Event.findById(sanitizedBody);
+        if (!event) {
+            return res.status(404).json({ message: 'Event not found' });
+        }
+
+        event.events_confirmed = true;
+        const updatedEvent = await event.save();
+        res.json(updatedEvent);
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
