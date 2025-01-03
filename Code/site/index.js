@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function () {
     updateButtons();
 
     // Fetch the number of QR codes from the backend
-    fetch('http://85.246.91.101/lqrcodes/count')
+    fetch('http://maltinha.ddns.net/lqrcodes/count')
         .then(response => response.json())
         .then(data => {
             const qrCodeCount = data.qrCodeCount;
@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 // Create a div for each event and add it to the container
                 events.forEach(event => {
                     const eventDiv = document.createElement('div');
-                    eventDiv.classList.add('event-item');
+                    eventDiv.classList.add('event_item');
                     eventDiv.textContent = event.events_name; // Only display the name
                     eventContainer.appendChild(eventDiv);
                 });
