@@ -434,7 +434,8 @@ canvas {
 }
 
 .eventsToAccept_list {
-    display: absolute;
+    display: flex;
+    flex-direction: row;
     top: 30%;
     flex-wrap: wrap;
     gap: 20px;
@@ -478,12 +479,11 @@ canvas {
 
 .eventsToAccept_box button {
     padding: 15px 30px;
-    width: 100%;
     max-width: 100%;
     background: rgb(32, 32, 32);
     box-shadow: 0 14px 24px rgb(72, 33, 100);
     color: rgb(213, 213, 213);
-    border-radius: 20px;
+    border-radius: 15px;
     border: none;
     font-size: 20px;
     font-weight: bold;
