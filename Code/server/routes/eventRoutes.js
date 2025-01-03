@@ -34,11 +34,6 @@ router.get('/count', async (req, res) => {
     }
 });
 
-// Get a single event
-router.get('/:id', getEvent, (req, res) => {
-    res.json(res.event);
-});
-
 // Get all confirmed events
 router.get('/confirmed', async (req, res) => {
     try {
@@ -49,6 +44,10 @@ router.get('/confirmed', async (req, res) => {
     }
 });
 
+// Get a single event
+router.get('/:id', getEvent, (req, res) => {
+    res.json(res.event);
+});
 
 // Update an event
 router.patch('/:id', getEvent, async (req, res) => {

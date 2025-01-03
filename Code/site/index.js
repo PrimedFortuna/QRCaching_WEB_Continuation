@@ -39,6 +39,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
     updateButtons();
 
+    // Fetch the number of QR codes from the backend
+    fetch('http://85.246.91.101/lqrcodes/count')
+        .then(response => response.json())
+        .then(data => {
+            const qrCodeCount = data.qrCodeCount;
+            const qrCodeText = document.querySelector('.app_section_text h2');
+            qrCodeText.textContent = `There are ${qrCodeCount} QR Codes in Lisbon`;
+        })
+        .catch(error => {
+            console.error('Error fetching QR code count:', error);
+        });
+
     const eventContainer = document.querySelector('.event_container'); // Get the container where the events will be displayed
 
     // Fetch confirmed events
