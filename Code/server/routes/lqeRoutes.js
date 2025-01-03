@@ -1,11 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const Lqe = require('../models/lqe');
+const sanitize = require('mongo-sanitize');
 
 // Create a new lqe
 router.post('/', async (req, res) => {
     try {
-        const newLqe = new Lqe(req.body);
+        const sanitizedBody = sanitize(req.body);
+        const newLqe = new Lqe(sanitizedBody);
         const savedLqe = await newLqe.save();
         res.status(201).json(savedLqe);
     } catch (error) {
@@ -24,15 +26,31 @@ router.get('/', async (req, res) => {
 });
 
 // Get a single lqe
-router.get('/:id', getLqe, (req, res) => {
-    res.json(res.lqe);
+router.get('/:id', async (req, res) => {
+    try {
+        const sanitizedId = sanitize(req.params.id);
+        const lqe = await Lqe.findById(sanitizedId);
+        if (!lqe) {
+            return res.status(404).json({ message: 'Lqe not found' });
+        }
+        res.json(lqe);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
 });
 
 // Update a lqe
-router.patch('/:id', getLqe, async (req, res) => {
+router.patch('/:id', async (req, res) => {
     try {
-        // Update lqe fields as needed
-        const updatedLqe = await res.lqe.save();
+        const sanitizedId = sanitize(req.params.id);
+        const sanitizedBody = sanitize(req.body);
+        const lqe = await Lqe.findById(sanitizedId);
+        if (!lqe) {
+            return res.status(404).json({ message: 'Lqe not found' });
+        }
+
+        Object.assign(lqe, sanitizedBody);
+        const updatedLqe = await lqe.save();
         res.json(updatedLqe);
     } catch (error) {
         res.status(400).json({ message: error.message });
@@ -40,27 +58,18 @@ router.patch('/:id', getLqe, async (req, res) => {
 });
 
 // Delete a lqe
-router.delete('/:id', getLqe, async (req, res) => {
+router.delete('/:id', async (req, res) => {
     try {
-        await res.lqe.remove();
+        const sanitizedId = sanitize(req.params.id);
+        const lqe = await Lqe.findById(sanitizedId);
+        if (!lqe) {
+            return res.status(404).json({ message: 'Lqe not found' });
+        }
+        await lqe.deleteOne();
         res.json({ message: 'Lqe deleted' });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 });
-
-async function getLqe(req, res, next) {
-    let lqe;
-    try {
-        lqe = await Lqe.findById(req.params.id);
-        if (lqe == null) {
-            return res.status(404).json({ message: 'Lqe not found' });
-        }
-    } catch (error) {
-        return res.status(500).json({ message: error.message });
-    }
-    res.lqe = lqe;
-    next();
-}
 
 module.exports = router;
