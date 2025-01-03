@@ -15,19 +15,17 @@ router.delete('/:id', getSalt, async (req, res) => {
 
 
 
-async function getSalt(user_id) {
+async function getSalt(req, res, next) {
     try {
         // Fetch the salt using the provided user_id
         const salt = await Salt.findById(req.params.id);
-
-        if (!salt) {
-            throw new Error('Salt not found for this user');
+        if (salt == null) {
+            return res.status(404).json({ error: 'Salt not found' });
         }
-
-        return salt.salt; // Return the salt value
     } catch (error) {
-        throw new Error(`Error retrieving salt: ${error.message}`);
+        return next(new Error(`Error retrieving salt: ${error.message}`)); // Pass the error to the error handler
     }
 }
+
 
 module.exports = router;
