@@ -23,6 +23,17 @@ router.get('/', async (req, res) => {
     }
 });
 
+// Get the total number of QR events
+router.get('/count', async (req, res) => {
+    try {
+        const eventCount = await Event.countDocuments();
+        res.status(200).json({ eventCount });
+    } catch (error) {
+        console.error('Error fetching event count:', error);
+        res.status(500).json({ message: error.message });
+    }
+});
+
 // Get a single event
 router.get('/:id', getEvent, (req, res) => {
     res.json(res.event);
@@ -94,6 +105,16 @@ router.post('/create_event', async (req, res) => {
         res.status(201).json(savedEvent);
     } catch (error) {
         res.status(400).json({ message: error.message });
+    }
+});
+
+//see all the events and return the ones that are accepted
+router.get('/accepted', async (req, res) => {
+    try {
+        const eventsAccepted = await Event.find({ events_accepted: true });
+        res.json(eventsAccepted);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
     }
 });
 

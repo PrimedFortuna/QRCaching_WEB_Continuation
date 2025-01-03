@@ -52,23 +52,43 @@ document.addEventListener('DOMContentLoaded', function () {
             console.error('Error fetching QR code count:', error);
         });
 
-    
-    // Fetch the number of events from the backend
-    
-    function getNumberOfEventsFromDatabase() {
-        // Replace with your actual logic to get the number of events
-        return 15; // Example value
+
+    // Function to fetch accepted events from the backend
+    async function fetchAcceptedEvents() {
+        try {
+            const response = await fetch('/events/accepted'); // Adjust the endpoint if necessary
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const eventsAccepted = await response.json();
+            return eventsAccepted;
+        } catch (error) {
+            console.error('Error fetching accepted events:', error);
+            return [];
+        }
     }
 
-    const numberOfEvents = getNumberOfEventsFromDatabase(); // Replace this with your actual function
+    // Function to render events in the DOM
+    async function displayAcceptedEvents() {
+        const eventContainer = document.querySelector('.event_container');
+        eventContainer.innerHTML = ''; // Clear any existing events
 
-    const eventContainer = document.querySelector('.event_container');
+        const events = await fetchAcceptedEvents();
+        if (events.length === 0) {
+            eventContainer.innerText = 'No accepted events to display.';
+            return;
+        }
 
-    for (let i = 0; i < numberOfEvents; i++) {
-        const div = document.createElement('div');
-        div.classList.add('event_item');
-        div.innerText = `Event ${i + 1}`; // Add any content or data you need here
-        eventContainer.appendChild(div);
+        events.forEach((event, index) => {
+            const div = document.createElement('div');
+            div.classList.add('event_item');
+            div.innerText = `Event ${index + 1}: ${event.events_name || 'Unnamed Event'}`;
+            eventContainer.appendChild(div);
+        });
     }
+
+    // Call the function to display events when the page loads
+    document.addEventListener('DOMContentLoaded', displayAcceptedEvents);
+
 
 });
