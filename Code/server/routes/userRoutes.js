@@ -59,7 +59,8 @@ router.patch('/:id', getUser, async (req, res) => {
 // Delete a user
 router.delete('/:id', getUser, async (req, res) => {
     try {
-        await res.user.deleteOne(); 
+        await res.user.deleteOne();
+        await Salt.deleteOne({ user_id: res.user.user_id });
         res.json({ message: 'User deleted successfully' });
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -71,11 +72,19 @@ router.delete('/:id', getUser, async (req, res) => {
 router.post('/signup', async (req, res) => {
     try {
         // Find the user with the highest user_id
-        const highestUser = await User.findOne().sort({ user_id: -1 });
+        const allUsers = await User.find({}, { user_id: 1 }).sort({ user_id: 1 }); // Get all user IDs in ascending order
         let nextUserId = 1; // Default value if no user exists yet
 
-        if (highestUser) {
-            nextUserId = highestUser.user_id + 1;
+        for (let i = 0; i < allUsers.length; i++) {
+            if (allUsers[i].user_id !== i + 1) {
+                nextUserId = i + 1;
+                break;
+            }
+        }
+
+        // If no gaps were found, set `nextUserId` to one greater than the last user_id
+        if (nextUserId === allUsers.length + 1) {
+            nextUserId = allUsers.length + 1;
         }
 
         const { user_name, user_email, user_password } = req.body;
@@ -88,7 +97,9 @@ router.post('/signup', async (req, res) => {
         userExists = await User.findOne({ user_email });
         if (userExists) {
             return res.status(400).json({ message: 'User already exists' });
-        }        const salt = crypto.randomBytes(16).toString('hex');
+        }
+
+        const salt = crypto.randomBytes(16).toString('hex');
 
         const hashedPassword = crypto
             .createHmac('sha256', salt)
@@ -122,9 +133,9 @@ router.post('/login', async (req, res) => {
     const { user_email, user_password } = req.body;
 
     try {
-         // Find the user by email
+        // Find the user by email
         const user = await User.findOne({ user_email });
-        if (!user) { 
+        if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
 
@@ -148,7 +159,7 @@ router.post('/login', async (req, res) => {
         }
 
         // User authenticated successfully
-        res.status(200).json({ message: 'Login successful', userId: user._id, userName: user.user_name, userEmail: user.user_email});
+        res.status(200).json({ message: 'Login successful', userId: user._id, userName: user.user_name, userEmail: user.user_email });
 
     } catch (error) {
         console.error('Error during login:', error);

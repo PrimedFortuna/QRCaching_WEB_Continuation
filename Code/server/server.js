@@ -9,6 +9,7 @@ const eventRoutes = require('./routes/eventRoutes');
 const lqrcodeRoutes = require('./routes/lqrcodeRoutes');
 const postRoutes = require('./routes/postRoutes');
 const achievementRoutes = require('./routes/achievementRoutes');
+const saltRoutes = require('./routes/saltRoutes');
 const ulqRoutes = require('./routes/ulqRoutes');
 const lqeRoutes = require('./routes/lqeRoutes');
 const achlqeRoutes = require('./routes/achlqeRoutes');
@@ -30,6 +31,7 @@ mongoose.connect('mongodb://mongo1:27017/myDatabase', {})
         app.use('/lqrcodes', lqrcodeRoutes);
         app.use('/posts', postRoutes); 
         app.use('/achievements', achievementRoutes);
+        app.use('/salts', saltRoutes);
         app.use('/ulqs', ulqRoutes);
         app.use('/lqes', lqeRoutes);
         app.use('/achlqes', achlqeRoutes);

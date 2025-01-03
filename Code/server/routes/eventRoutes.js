@@ -111,7 +111,7 @@ router.post('/create_event', async (req, res) => {
 //see all the events and return the ones that are accepted
 router.get('/accepted', async (req, res) => {
     try {
-        const eventsAccepted = await Event.find({ events_accepted: true });
+        const eventsAccepted = await Event.find({ events_confirmed: true });
         res.json(eventsAccepted);
     } catch (error) {
         res.status(500).json({ message: error.message });
