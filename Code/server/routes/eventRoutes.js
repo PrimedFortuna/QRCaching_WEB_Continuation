@@ -88,12 +88,17 @@ router.post('/create_event', async (req, res) => {
 // Accept an event
 router.post('/accept_event', async (req, res) => {
     try {
+        // Access the ID from the body (req.body.id)
         const sanitizedBody = sanitize(req.body);
-        const event = await Event.findById(sanitizedBody);
+        const eventId = sanitizedBody.id; // Get the ID from the sanitized object
+        
+        // Fetch the event by the ID
+        const event = await Event.findById(eventId);
         if (!event) {
             return res.status(404).json({ message: 'Event not found' });
         }
 
+        // Mark the event as confirmed
         event.events_confirmed = true;
         const updatedEvent = await event.save();
         res.json(updatedEvent);
@@ -101,6 +106,7 @@ router.post('/accept_event', async (req, res) => {
         res.status(400).json({ message: error.message });
     }
 });
+
 
 // Get a single event by ID
 router.get('/:id', async (req, res) => {

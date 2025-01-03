@@ -58,17 +58,18 @@ document.addEventListener('DOMContentLoaded', function () {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ id: eventId }) // Send the ID as an object with 'id' key
+                body: JSON.stringify({ id: eventId }) 
             });
-    
-            // Check if response is OK (status 200-299)
+
             if (!response.ok) {
                 throw new Error(`Failed to accept event, status: ${response.status}`);
             }
-    
+
             const data = await response.json();
-            console.log(data); // Optionally log the response
-    
+            console.log(data); 
+
+            // Reload the page after event is declined
+            location.reload();
         } catch (error) {
             console.error('Error accepting event:', error);
             alert('An error occurred during event acceptance.');
@@ -88,10 +89,12 @@ document.addEventListener('DOMContentLoaded', function () {
             if (!response.ok) {
                 throw new Error(`Failed to decline event, status: ${response.status}`);
             }
-    
+
             const data = await response.json();
-            console.log(data); 
-    
+            console.log(data);
+
+            // Reload the page after event is declined
+            location.reload();
         } catch (error) {
             console.error('Error deleting event:', error);
             alert('An error occurred during deleting event.');
