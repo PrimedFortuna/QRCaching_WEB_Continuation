@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const Achlqe = require('../models/achlqe');
+const sanitize = require('mongo-sanitize');
 
-// Create a new achlqe
 router.post('/', async (req, res) => {
     try {
-        const newAchlqe = new Achlqe(req.body);
+        const sanitizedBody = sanitize(req.body);
+        const newAchlqe = new Achlqe(sanitizedBody);
         const savedAchlqe = await newAchlqe.save();
         res.status(201).json(savedAchlqe);
     } catch (error) {
@@ -13,7 +14,6 @@ router.post('/', async (req, res) => {
     }
 });
 
-// Get all achlqes
 router.get('/', async (req, res) => {
     try {
         const achlqes = await Achlqe.find();
@@ -23,44 +23,47 @@ router.get('/', async (req, res) => {
     }
 });
 
-// Get a single achlqe
-router.get('/:id', getAchlqe, (req, res) => {
-    res.json(res.achlqe);
+router.get('/:id', async (req, res) => {
+    try {
+        const sanitizedId = sanitize(req.params.id);
+        const achlqe = await Achlqe.findById(sanitizedId);
+        if (!achlqe) {
+            return res.status(404).json({ message: 'Achlqe not found' });
+        }
+        res.json(achlqe);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
 });
 
-// Update an achlqe
-router.patch('/:id', getAchlqe, async (req, res) => {
+router.patch('/:id', async (req, res) => {
     try {
-        // Update achlqe fields as needed
-        const updatedAchlqe = await res.achlqe.save();
+        const sanitizedId = sanitize(req.params.id);
+        const sanitizedBody = sanitize(req.body);
+        const achlqe = await Achlqe.findById(sanitizedId);
+        if (!achlqe) {
+            return res.status(404).json({ message: 'Achlqe not found' });
+        }
+        Object.assign(achlqe, sanitizedBody);
+        const updatedAchlqe = await achlqe.save();
         res.json(updatedAchlqe);
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
 });
 
-// Delete an achlqe
-router.delete('/:id', getAchlqe, async (req, res) => {
+router.delete('/:id', async (req, res) => {
     try {
-        await res.achlqe.remove();
+        const sanitizedId = sanitize(req.params.id);
+        const achlqe = await Achlqe.findById(sanitizedId);
+        if (!achlqe) {
+            return res.status(404).json({ message: 'Achlqe not found' });
+        }
+        await achlqe.remove();
         res.json({ message: 'Achlqe deleted' });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 });
-
-async function getAchlqe(req, res, next) {
-    let achlqe;
-    try {
-        achlqe = await Achlqe.findById(req.params.id);
-        if (achlqe == null) {
-            return res.status(404).json({ message: 'Achlqe not found' });
-        }
-    } catch (error) {
-        return res.status(500).json({ message: error.message });
-    }
-    res.achlqe = achlqe;
-    next();
-}
 
 module.exports = router;
