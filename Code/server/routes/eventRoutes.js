@@ -23,7 +23,7 @@ router.get('/', async (req, res) => {
     }
 });
 
-// Get the total number of QR events
+// Get the total number of events
 router.get('/count', async (req, res) => {
     try {
         const eventCount = await Event.countDocuments();

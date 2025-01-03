@@ -60,7 +60,7 @@ function initMap() {
 
     //comment after prot
 
-    fetch('http://85.246.91.101/lqrcodes')
+    fetch('http://maltinha.ddns.net/lqrcodes')
         .then(response => response.json())
         .then(lqrcodes => {
             lqrcodes.forEach(qrcode => {

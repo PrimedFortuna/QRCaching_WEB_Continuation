@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var Permanent = 0;
 
     // Fetch QR codes from the local server and process them
-    fetch('http://85.246.91.101/lqrcodes')
+    fetch('http://maltinha.ddns.net/lqrcodes')
         .then(response => response.json()) // Convert the response to JSON
         .then(lqrcodes => {
             // Count the types of QR codes

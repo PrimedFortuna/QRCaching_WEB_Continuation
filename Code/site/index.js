@@ -5,9 +5,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const event_buttons = document.getElementById('event_buttons');
     const acceptbtn = document.getElementById('acceptbtn');
 
-    let isLoggedIn = false;
-
-
     if (localStorage.getItem('userId')) {
         isLoggedIn = true;
     }
@@ -41,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
     updateButtons();
 
     // Fetch the number of QR codes from the backend
-    fetch('http://85.246.91.101/lqrcodes/count')
+    fetch('http://maltinha.ddns.net/lqrcodes/count')
         .then(response => response.json())
         .then(data => {
             const qrCodeCount = data.qrCodeCount;
