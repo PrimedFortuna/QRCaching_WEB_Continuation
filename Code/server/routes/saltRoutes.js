@@ -12,6 +12,14 @@ router.delete('/:id', getSalt, async (req, res) => {
     }
 });
 
+router.get('/', async (req, res) => {
+    try {
+        const salts = await Salt.find();
+        res.json(salts);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
 
 
 

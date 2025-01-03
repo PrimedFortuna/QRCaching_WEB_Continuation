@@ -39,6 +39,17 @@ router.get('/:id', getEvent, (req, res) => {
     res.json(res.event);
 });
 
+// Get all confirmed events
+router.get('/confirmed', async (req, res) => {
+    try {
+        const events = await Event.find({ events_confirmed: true });
+        res.json(events);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+
 // Update an event
 router.patch('/:id', getEvent, async (req, res) => {
     try {
@@ -80,11 +91,20 @@ router.delete('/:id', getEvent, async (req, res) => {
 // Create_event
 router.post('/create_event', async (req, res) => {
     try {
-        const highestEventId = await Event.findOne().sort({ events_id: -1 });
-        let newEventId = 1; // Default value if no user exists yet
+        const allEvents = await Event.find({}, { events_id: 1 }).sort({ events_id: 1 }); // Get all event IDs in ascending order
+        let newEventId = 1; // Default value if no events exist yet
 
-        if (highestEventId) {
-            newEventId = highestEventId.events_id + 1;
+        // Check for gaps in the event IDs
+        for (let i = 0; i < allEvents.length; i++) {
+            if (allEvents[i].events_id !== i + 1) {
+                newEventId = i + 1; // If there's a gap, use this ID
+                break;
+            }
+        }
+
+        // If no gaps were found, set `newEventId` to one greater than the last event ID
+        if (newEventId === allEvents.length + 1) {
+            newEventId = allEvents.length + 1;
         }
 
         const {events_name, events_photo, events_map, events_svg, events_num_qrcodes, events_idate, events_fdate} = req.body;
@@ -105,16 +125,6 @@ router.post('/create_event', async (req, res) => {
         res.status(201).json(savedEvent);
     } catch (error) {
         res.status(400).json({ message: error.message });
-    }
-});
-
-//see all the events and return the ones that are accepted
-router.get('/accepted', async (req, res) => {
-    try {
-        const eventsAccepted = await Event.find({ events_confirmed: true });
-        res.json(eventsAccepted);
-    } catch (error) {
-        res.status(500).json({ message: error.message });
     }
 });
 

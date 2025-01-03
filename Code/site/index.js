@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const acceptbtn = document.getElementById('acceptbtn');
 
     let isLoggedIn
-    
+
     if (localStorage.getItem('userId')) {
         isLoggedIn = true;
     } else {
@@ -39,55 +39,28 @@ document.addEventListener('DOMContentLoaded', function () {
 
     updateButtons();
 
-    // Fetch the number of QR codes from the backend
-    fetch('http://maltinha.ddns.net/lqrcodes/count')
+    const eventContainer = document.querySelector('.event_container'); // Get the container where the events will be displayed
+
+    // Fetch confirmed events
+    fetch('http://maltinha.ddns.net/events/confirmed')
         .then(response => response.json())
-        .then(data => {
-            const qrCodeCount = data.qrCodeCount;
-            const qrCodeText = document.querySelector('.app_section_text h2');
-            qrCodeText.textContent = `There are ${qrCodeCount} QR Codes in Lisbon`;
+        .then(events => {
+            if (events.length === 0) {
+                eventContainer.innerHTML = 'No confirmed events available.';
+            } else {
+                // Create a div for each event and add it to the container
+                events.forEach(event => {
+                    const eventDiv = document.createElement('div');
+                    eventDiv.classList.add('event-item');
+                    eventDiv.textContent = event.events_name; // Only display the name
+                    eventContainer.appendChild(eventDiv);
+                });
+            }
         })
         .catch(error => {
-            console.error('Error fetching QR code count:', error);
+            console.error('Error fetching events:', error);
+            eventContainer.innerHTML = 'Error loading events.';
         });
-
-
-    // Function to fetch accepted events from the backend
-    async function fetchAcceptedEvents() {
-        try {
-            const response = await fetch('/events/accepted'); // Adjust the endpoint if necessary
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            const eventsAccepted = await response.json();
-            return eventsAccepted;
-        } catch (error) {
-            console.error('Error fetching accepted events:', error);
-            return [];
-        }
-    }
-
-    // Function to render events in the DOM
-    async function displayAcceptedEvents() {
-        const eventContainer = document.querySelector('.event_container');
-        eventContainer.innerHTML = ''; // Clear any existing events
-
-        const events = await fetchAcceptedEvents();
-        if (events.length === 0) {
-            eventContainer.innerText = 'No accepted events to display.';
-            return;
-        }
-
-        events.forEach((event, index) => {
-            const div = document.createElement('div');
-            div.classList.add('event_item');
-            div.innerText = `Event ${index + 1}: ${event.events_name || 'Unnamed Event'}`;
-            eventContainer.appendChild(div);
-        });
-    }
-
-    // Call the function to display events when the page loads
-    document.addEventListener('DOMContentLoaded', displayAcceptedEvents);
-
 
 });
+
