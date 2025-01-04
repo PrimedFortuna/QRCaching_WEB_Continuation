@@ -267,6 +267,9 @@ a {
 
 }
 
+
+/*Events*/
+
 .event_container {
     display: flex;
     overflow-x: auto;
@@ -275,6 +278,9 @@ a {
 }
 
 .event_item {
+    font-weight: bold;
+    font-size: large;
+    color: white;
     flex: 0 0 auto;
     width: 500px;
     height: 200px;
@@ -289,8 +295,6 @@ a {
     line-height: 1.2;
 }
 
-/*Events*/
-
 .event_section_2 {
     display: flex;
     justify-content: center;
@@ -298,34 +302,6 @@ a {
 
 .container_div {
     max-width: 1550px;
-}
-
-.event-container {
-    position: absolute;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: white;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    padding: 30px;
-    text-align: center;
-    width: 80%;
-    max-width: 600px;
-
-}
-
-.event-image {
-    width: 100%;
-    max-height: 300px;
-    object-fit: cover;
-    border-radius: 8px;
-}
-
-.event-container h1 {
-    font-size: 28px;
-    color: #333;
-    margin: 20px 0;
 }
 
 #qr-codes,

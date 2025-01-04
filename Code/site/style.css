@@ -260,8 +260,7 @@ canvas {
     height: auto;
 }
 
-/*Event Page*/
-
+/* Event Page */
 .event-container {
     position: absolute;
     top: 40%;
@@ -274,7 +273,6 @@ canvas {
     text-align: center;
     width: 80%;
     max-width: 600px;
-
 }
 
 .event-image {
@@ -290,10 +288,43 @@ canvas {
     margin: 20px 0;
 }
 
-#qr-codes,
-#floor-plan {
-    margin: 15px;
+.event-details {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
 }
+
+.event-location,
+.event-dates {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 5px 0;
+}
+
+.event-latitude,
+.event-longitude,
+.event-start-date,
+.event-end-date {
+    margin: 5px 10px;
+}
+
+.event-latitude span,
+.event-longitude span,
+.event-start-date span,
+.event-end-date span {
+    font-weight: bold;
+}
+
+
+.actions {
+    margin-top: 20px;
+}
+
 
 /*Floor Plan*/
 

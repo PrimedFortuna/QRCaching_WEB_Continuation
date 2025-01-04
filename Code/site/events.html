@@ -21,15 +21,27 @@
         </div>
         <div class="event-container">
             <!-- Event Image -->
-            <img src="img/Lisbon_map.png" alt="Event Image" class="event-image" id="event-image">
+            <img alt="Event Image" class="event-image" id="event-image">
 
             <!-- Event Title -->
-            <h1>IADE Games</h1>
+            <h1 class="event_name" id="event_name">Event Name</h1>
+
+            <div class="event-details">
+                <!-- Event Latitude and Longitude -->
+                <div class="event-location">
+                    <p class="event-latitude">Latitude: <span id="event-latitude">0.0000</span></p>
+                    <p class="event-longitude">Longitude: <span id="event-longitude">0.0000</span></p>
+                </div>
+                <div class="event-dates">
+                    <!-- Event Start and End Dates -->
+                    <p class="event-start-date">Start Date: <span id="event-start-date">YYYY-MM-DD</span></p>
+                    <p class="event-end-date">End Date: <span id="event-end-date">YYYY-MM-DD</span></p>
+                </div>
+            </div>
 
             <!-- Buttons for Floor Plan and QR Codes -->
             <div class="actions">
                 <a href="floorPlan.html"><button id="floor-plan">Floor Plan</button></a>
-                <a href="Qrcodes.html"><button id="qr-codes">QR Codes</button></a>
             </div>
         </div>
     </main>

@@ -5,6 +5,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const event_buttons = document.getElementById('event_buttons');
     const acceptbtn = document.getElementById('acceptbtn');
 
+    // Clear the event ID from localStorage
+    localStorage.removeItem('selectedEventId');
+
     let isLoggedIn
 
     if (localStorage.getItem('userId')) {
@@ -53,19 +56,28 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const eventContainer = document.querySelector('.event_container'); // Get the container where the events will be displayed
 
-    // Fetch confirmed events
     fetch('http://maltinha.ddns.net/events/confirmed')
         .then(response => response.json())
         .then(events => {
             if (events.length === 0) {
                 eventContainer.innerHTML = 'No confirmed events available.';
             } else {
-                // Create a div for each event and add it to the container
                 events.forEach(event => {
                     const eventDiv = document.createElement('div');
                     eventDiv.classList.add('event_item');
-                    eventDiv.textContent = event.events_name; // Only display the name
-                    eventContainer.appendChild(eventDiv);
+                    eventDiv.textContent = event.events_name; 
+
+                    // Add a custom attribute to store the event ID
+                    eventDiv.setAttribute('data-event-id', event.events_id);
+
+                    // Add a click event listener to store the ID in localStorage and navigate
+                    eventDiv.addEventListener('click', function () {
+                        const eventId = this.getAttribute('data-event-id');
+                        localStorage.setItem('selectedEventId', eventId); 
+                        window.location.href = 'event.html'; 
+                    });
+
+                    eventContainer.appendChild(eventDiv); r
                 });
             }
         })
@@ -73,6 +85,7 @@ document.addEventListener('DOMContentLoaded', function () {
             console.error('Error fetching events:', error);
             eventContainer.innerHTML = 'Error loading events.';
         });
+
 
 });
 
