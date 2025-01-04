@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
     fetch(`http://maltinha.ddns.net/events/${eventId}`)
         .then(response => response.json())
         .then(event => {
+            console.log('Event Data:', event); // Log the event data
             // Check if the event is found
             if (!event) {
                 document.querySelector('.event-container').innerHTML = 'Event not found.';
@@ -18,12 +19,13 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
             // Set event details in the HTML
-            document.getElementById('event_name').textContent = event.events_name;
-            document.getElementById('event-image').src = event.events_photo;
-            document.getElementById('event-latitude').textContent = event.events_latitude;
-            document.getElementById('event-longitude').textContent = event.events_longitude;
-            document.getElementById('event-start-date').textContent = new Date(event.events_idate).toLocaleDateString();
-            document.getElementById('event-end-date').textContent = new Date(event.events_fdate).toLocaleDateString();
+            document.getElementById('event_name').innerHTML = event.events_name;
+            document.getElementById('event-image').setAttribute('src', event.events_photo);
+            document.getElementById('event-latitude').innerHTML = event.events_latitude;
+            document.getElementById('event-longitude').innerHTML = event.events_longitude;
+            document.getElementById('event-start-date').innerHTML = new Date(event.events_idate).toLocaleDateString();
+            document.getElementById('event-end-date').innerHTML = new Date(event.events_fdate).toLocaleDateString();
+
 
         })
         .catch(error => {
