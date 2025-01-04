@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
             // Set event details in the HTML
-            document.getElementById('event-name').textContent = event.events_name;
+            document.getElementById('event_name').textContent = event.events_name;
             document.getElementById('event-image').src = event.events_photo;
             document.getElementById('event-latitude').textContent = event.events_latitude;
             document.getElementById('event-longitude').textContent = event.events_longitude;
