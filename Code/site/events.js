@@ -1,48 +1,34 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const eventId = localStorage.getItem('selectedEventId'); // Obter o ID do evento do localStorage
+    const eventId = localStorage.getItem('selectedEventId'); // Get event ID from localStorage
 
     if (!eventId) {
-        // Caso nenhum evento tenha sido selecionado
-        document.querySelector('.event-container').innerHTML = 'Nenhum evento selecionado.';
+        // Handle case where no event ID is selected
+        document.querySelector('.event-container').innerHTML = 'No event selected.';
         return;
     }
 
-    // Fazer fetch dos detalhes do evento pelo ID
+    // Fetch the event details by ID
     fetch(`http://maltinha.ddns.net/events/${eventId}`)
         .then(response => response.json())
         .then(event => {
-            console.log('Dados do Evento:', event); // Log dos dados do evento
-            // Verificar se o evento foi encontrado
+            console.log('Event Data:', event); // Log the event data
+            // Check if the event is found
             if (!event) {
-                document.querySelector('.event-container').innerHTML = 'Evento não encontrado.';
+                document.querySelector('.event-container').innerHTML = 'Event not found.';
                 return;
             }
 
-            // Preencher os detalhes do evento no HTML
-            const eventBox = document.querySelector('.event-container');
-            eventBox.innerHTML = `
-                <!-- Imagem do Evento -->
-                <img alt="Event Image" class="event-image" id="event-image" src="${event.image || 'default-image.jpg'}">
+            // Set event details in the HTML
+            document.getElementById('event_name').innerHTML = event.events_name;
+            document.getElementById('event-image').setAttribute('src', event.events_photo);
+            document.getElementById('event-latitude').innerHTML = event.events_latitude;
+            document.getElementById('event-longitude').innerHTML = event.events_longitude;
+            document.getElementById('event-start-date').innerHTML = new Date(event.events_idate).toLocaleDateString();
+            document.getElementById('event-end-date').innerHTML = new Date(event.events_fdate).toLocaleDateString();
 
-                <!-- Título do Evento -->
-                <h1 class="event_name" id="event_name">${event.name || 'Nome do Evento'}</h1>
-
-                <div class="event-details">
-                    <!-- Latitude e Longitude do Evento -->
-                    <div class="event-location">
-                        <p class="event-latitude">Latitude: <span id="event-latitude">${event.latitude || '0.0000'}</span></p>
-                        <p class="event-longitude">Longitude: <span id="event-longitude">${event.longitude || '0.0000'}</span></p>
-                    </div>
-                    <div class="event-dates">
-                        <!-- Datas de Início e Fim do Evento -->
-                        <p class="event-start-date">Data de Início: <span id="event-start-date">${event.startDate || 'YYYY-MM-DD'}</span></p>
-                        <p class="event-end-date">Data de Término: <span id="event-end-date">${event.endDate || 'YYYY-MM-DD'}</span></p>
-                    </div>
-                </div>
-            `;
         })
         .catch(error => {
-            console.error('Erro ao buscar dados do evento:', error);
-            document.querySelector('.event-container').innerHTML = 'Erro ao carregar detalhes do evento.';
+            console.error('Error fetching event data:', error);
+            document.querySelector('.event-container').innerHTML = 'Error loading event details.';
         });
 });
