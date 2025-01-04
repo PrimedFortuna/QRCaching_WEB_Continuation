@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(response => response.json())
         .then(events => {
             if (events.length === 0) {
-                eventContainer.innerHTML = 'No confirmed events available.';
+                eventContainer.innerHTML = 'No events available.';
             } else {
                 events.forEach(event => {
                     const eventDiv = document.createElement('div');
