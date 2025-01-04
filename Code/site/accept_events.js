@@ -50,67 +50,25 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-     // Handle accept event
-     async function handleAcceptEvent(eventId, svgPath) {
+    // Handle accept event
+    async function handleAcceptEvent(eventId) {
         try {
-            const response = await fetch(svgPath);
-            const svgText = await response.text();
-
-            const parser = new DOMParser();
-            const svgDoc = parser.parseFromString(svgText, 'image/svg+xml');
-            const blackDots = svgDoc.querySelectorAll('rect[style*="fill:#000000"]');
-
-            const qrcodes = Array.from(blackDots).map(dot => ({
-                lqrcode_longitude: parseFloat(dot.getAttribute('x')),
-                lqrcode_latitude: parseFloat(dot.getAttribute('y')),
-                lqrcode_altitude: null,
-                lqrcode_is_event: true,
-                lqrcode_is_quest: null,
-            }));
-
-            for (const qrcode of qrcodes) {
-                const qrResponse = await fetch('/qrcodes', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(qrcode)
-                });
-
-                if (!qrResponse.ok) {
-                    throw new Error(`Failed to create QR code, status: ${qrResponse.status}`);
-                }
-
-                const createdQrcode = await qrResponse.json();
-                const lqeResponse = await fetch('/lqes', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        lqe_lqrcode_id: createdQrcode._id,
-                        lqe_events_id: eventId,
-                    })
-                });
-
-                if (!lqeResponse.ok) {
-                    throw new Error(`Failed to create LQE, status: ${lqeResponse.status}`);
-                }
-            }
-
-            const acceptResponse = await fetch('/events/accept_event', {
+            const response = await fetch('/events/accept_event', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ id: eventId })
+                body: JSON.stringify({ id: eventId }) 
             });
 
-            if (!acceptResponse.ok) {
-                throw new Error(`Failed to accept event, status: ${acceptResponse.status}`);
+            if (!response.ok) {
+                throw new Error(`Failed to accept event, status: ${response.status}`);
             }
 
-            console.log('Event accepted and QR codes created successfully');
+            const data = await response.json();
+            console.log(data); 
+
+            // Reload the page after event is declined
             location.reload();
         } catch (error) {
             console.error('Error accepting event:', error);

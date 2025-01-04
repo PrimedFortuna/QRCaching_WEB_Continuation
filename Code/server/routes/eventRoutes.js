@@ -1,5 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const { parse } = require('node-html-parser');
+const Lqrcode = require('../models/lqrcode'); 
+const Lqe = require('../models/lqe'); 
 const Event = require('../models/event');
 const sanitize = require('mongo-sanitize');
 
@@ -88,19 +91,62 @@ router.post('/create_event', async (req, res) => {
 // Accept an event
 router.post('/accept_event', async (req, res) => {
     try {
-        // Access the ID from the body (req.body.id)
         const sanitizedBody = sanitize(req.body);
-        const eventId = sanitizedBody.id; // Get the ID from the sanitized object
-        
-        // Fetch the event by the ID
+        const eventId = sanitizedBody.id; // Get the event ID from the sanitized request body
+
+        // Fetch the event by ID
         const event = await Event.findById(eventId);
         if (!event) {
             return res.status(404).json({ message: 'Event not found' });
         }
 
+        // Get SVG content from the event
+        const svgContent = event.events_svg;
+        if (!svgContent) {
+            return res.status(400).json({ message: 'SVG content is missing in the event.' });
+        }
+
+        // Parse the SVG content
+        const svgRoot = parse(svgContent);
+        const blackDots = svgRoot.querySelectorAll('rect[style*="fill:#000000"]');
+
+        // Validate black dots existence
+        if (blackDots.length === 0) {
+            return res.status(400).json({ message: 'No black dots found in the SVG.' });
+        }
+
+        // Create QR codes for each black dot
+        for (const dot of blackDots) {
+            const x = parseFloat(dot.getAttribute('x'));
+            const y = parseFloat(dot.getAttribute('y'));
+
+            if (isNaN(x) || isNaN(y)) continue; // Skip invalid coordinates
+
+            // Create a new QR code
+            const newQrCode = new Lqrcode({
+                lqrcode_longitude: x,
+                lqrcode_latitude: y,
+                lqrcode_altitude: null,
+                lqrcode_is_event: true,
+                lqrcode_is_quest: null,
+                lqrcode_times_scanned: 0,
+            });
+
+            const savedQrCode = await newQrCode.save();
+
+            // Create an association (Lqe) between the event and the QR code
+            const newLqe = new Lqe({
+                lqe_lqrcode_id: savedQrCode._id,
+                lqe_events_id: event._id,
+            });
+
+            await newLqe.save();
+        }
+
         // Mark the event as confirmed
         event.events_confirmed = true;
         const updatedEvent = await event.save();
+
         res.json(updatedEvent);
     } catch (error) {
         res.status(400).json({ message: error.message });
