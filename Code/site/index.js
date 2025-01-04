@@ -56,6 +56,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const eventContainer = document.querySelector('.event_container'); // Get the container where the events will be displayed
 
+
+    // Fetch the confirmed events from the backend
     fetch('http://maltinha.ddns.net/events/confirmed')
         .then(response => response.json())
         .then(events => {
@@ -77,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         window.location.href = 'event.html'; 
                     });
 
-                    eventContainer.appendChild(eventDiv); r
+                    eventContainer.appendChild(eventDiv);
                 });
             }
         })
