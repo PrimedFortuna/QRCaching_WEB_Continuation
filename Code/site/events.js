@@ -25,10 +25,6 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('event-start-date').textContent = new Date(event.events_idate).toLocaleDateString();
             document.getElementById('event-end-date').textContent = new Date(event.events_fdate).toLocaleDateString();
 
-            // Additional: Handle floor plan and map
-            const mapBackground = document.querySelector('.map-background-img');
-            mapBackground.src = event.events_map;
-
         })
         .catch(error => {
             console.error('Error fetching event data:', error);
