@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     eventDiv.textContent = event.events_name; 
 
                     // Add a custom attribute to store the event ID
-                    eventDiv.setAttribute('data-event-id', event.events_id);
+                    eventDiv.setAttribute('data-event-id', event._id);
 
                     // Add a click event listener to store the ID in localStorage and navigate
                     eventDiv.addEventListener('click', function () {
