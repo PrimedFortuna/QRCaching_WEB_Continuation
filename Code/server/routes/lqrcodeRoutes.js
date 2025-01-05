@@ -45,6 +45,16 @@ router.get('/count_not_event', async (req, res) => {
     }
 });
 
+//Delete all lqrcodes
+router.delete('/', async (req, res) => {
+    try {
+        await Lqrcode.deleteMany();
+        res.json({ message: 'All lqrcodes deleted' });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
 // Get a single lqrcode
 router.get('/:id', getLqrcode, (req, res) => {
     res.json(res.lqrcode);

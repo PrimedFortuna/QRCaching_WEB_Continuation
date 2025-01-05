@@ -198,14 +198,14 @@ router.delete('/:id', async (req, res) => {
             return res.status(404).json({ message: 'Event not found' });
         }
 
-        // Delete the lqe associated with the event
-        await Lqe.deleteMany({ lqe_events_id: sanitizedId });
-
         // Delete the lqrcode associated with the event
         const lqes = await Lqe.find({ lqe_events_id: sanitizedId });
         for (const lqe of lqes) {
             await Lqrcode.deleteOne({ _id: lqe.lqe_lqrcode_id });
         }
+
+        // Delete the lqe associated with the event
+        await Lqe.deleteMany({ lqe_events_id: sanitizedId });
 
         await event.deleteOne();
         res.json({ message: 'Event deleted' });
