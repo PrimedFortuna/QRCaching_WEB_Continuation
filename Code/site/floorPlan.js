@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', async function () {
     // Retrieve the event ID from localStorage
-    const eventId = localStorage.getItem('eventId');
+    const eventId = localStorage.getItem('selectedEventId'); // Get event ID from localStorage
 
     if (!eventId) {
         console.error('Event ID not found in localStorage.');
