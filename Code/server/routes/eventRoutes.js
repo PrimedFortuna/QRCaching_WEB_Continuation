@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { parse } = require('node-html-parser');
+const { DOMParser } = require('xmldom');
 const Lqrcode = require('../models/lqrcode'); 
 const Lqe = require('../models/lqe'); 
 const Event = require('../models/event');
@@ -92,7 +92,7 @@ router.post('/create_event', async (req, res) => {
 router.post('/accept_event', async (req, res) => {
     try {
         const sanitizedBody = sanitize(req.body);
-        const eventId = sanitizedBody.id; // Get the event ID from the sanitized request body
+        const eventId = sanitizedBody.id;
 
         // Fetch the event by ID
         const event = await Event.findById(eventId);
@@ -100,29 +100,34 @@ router.post('/accept_event', async (req, res) => {
             return res.status(404).json({ message: 'Event not found' });
         }
 
-        // Get SVG content from the event
         const svgContent = event.events_svg;
         if (!svgContent) {
             return res.status(400).json({ message: 'SVG content is missing in the event.' });
         }
 
-        // Parse the SVG content
-        const svgRoot = parse(svgContent);
-        const blackDots = svgRoot.querySelectorAll('rect[style*="fill:#000000"]');
+        // Parse the SVG content using xmldom
+        const domParser = new DOMParser();
+        const svgDoc = domParser.parseFromString(svgContent, 'text/xml');
+        const rects = svgDoc.getElementsByTagName('rect');
 
-        // Validate black dots existence
+        const blackDots = [];
+        for (let i = 0; i < rects.length; i++) {
+            const rect = rects[i];
+            const style = rect.getAttribute('style');
+            if (style && style.includes('fill:#000000')) {
+                const x = parseFloat(rect.getAttribute('x'));
+                const y = parseFloat(rect.getAttribute('y'));
+                if (!isNaN(x) && !isNaN(y)) {
+                    blackDots.push({ x, y });
+                }
+            }
+        }
+
         if (blackDots.length === 0) {
             return res.status(400).json({ message: 'No black dots found in the SVG.' });
         }
 
-        // Create QR codes for each black dot
-        for (const dot of blackDots) {
-            const x = parseFloat(dot.getAttribute('x'));
-            const y = parseFloat(dot.getAttribute('y'));
-
-            if (isNaN(x) || isNaN(y)) continue; // Skip invalid coordinates
-
-            // Create a new QR code
+        for (const { x, y } of blackDots) {
             const newQrCode = new Lqrcode({
                 lqrcode_longitude: x,
                 lqrcode_latitude: y,
@@ -134,7 +139,6 @@ router.post('/accept_event', async (req, res) => {
 
             const savedQrCode = await newQrCode.save();
 
-            // Create an association (Lqe) between the event and the QR code
             const newLqe = new Lqe({
                 lqe_lqrcode_id: savedQrCode._id,
                 lqe_events_id: event._id,
@@ -143,7 +147,6 @@ router.post('/accept_event', async (req, res) => {
             await newLqe.save();
         }
 
-        // Mark the event as confirmed
         event.events_confirmed = true;
         const updatedEvent = await event.save();
 
