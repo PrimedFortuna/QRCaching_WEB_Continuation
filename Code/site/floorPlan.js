@@ -24,16 +24,12 @@ document.addEventListener('DOMContentLoaded', async function () {
             return;
         }
 
-        // Set the event map (SVG or image) in the container
+        // Set the event map in the container
         svgContainer.innerHTML = `<img src="${eventData.events_map}" alt="Event Map">`;
 
-        // Fetch the QR codes associated with this event
-        const qrResponse = await fetch(`/qrcodes_associated/${eventId}`);
-        if (!qrResponse.ok) {
-            throw new Error(`Error fetching QR codes: ${qrResponse.statusText}`);
-        }
+        // Fetch the number of qr codes on the event
+        const numberOfQrCodes = eventData.events_num_qrcodes;
 
-        const qrCodes = await qrResponse.json();
 
         // Find the div where the checkboxes should be dynamically added
         const qrCheckboxesContainer = document.getElementById('qr-checkboxes');
@@ -42,25 +38,22 @@ document.addEventListener('DOMContentLoaded', async function () {
             return;
         }
 
-        // Create checkboxes for each QR code
-        qrCodes.forEach(qrCode => {
-            const checkboxDiv = document.createElement('div');
-            checkboxDiv.classList.add('qr-checkbox-item');
-
+        // Create checkboxes for all the QR codes
+        for (let i = 1; i <= numberOfQrCodes; i++) {
             const checkbox = document.createElement('input');
             checkbox.type = 'checkbox';
-            checkbox.id = `qr-checkbox-${qrCode.lqrcode_id}`;
-            checkbox.value = qrCode.lqrcode_id;
+            checkbox.id = `${i}`;
+            checkbox.name = `QrCode ${i}`;
+            checkbox.value = `qr-${i}`;
+            checkbox.classList.add('qr-checkbox');
 
             const label = document.createElement('label');
-            label.setAttribute('for', `qr-checkbox-${qrCode.lqrcode_id}`);
-            label.textContent = `QR Code ${qrCode.lqrcode_id}`;
+            label.htmlFor = `QrCode ${i}`;
+            label.textContent = `QR Code ${i}`;
 
-            checkboxDiv.appendChild(checkbox);
-            checkboxDiv.appendChild(label);
-
-            qrCheckboxesContainer.appendChild(checkboxDiv);
-        });
+            qrCheckboxesContainer.appendChild(checkbox);
+            qrCheckboxesContainer.appendChild(label);
+        }
 
     } catch (error) {
         console.error('Error fetching and displaying event map or QR codes:', error.message);
