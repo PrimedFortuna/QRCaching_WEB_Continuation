@@ -129,6 +129,7 @@ router.post('/accept_event', async (req, res) => {
 
         for (const { x, y } of blackDots) {
             const newQrCode = new Lqrcode({
+                lqrcode_id: await Lqrcode.countDocuments() + 1,
                 lqrcode_longitude: x,
                 lqrcode_latitude: y,
                 lqrcode_altitude: null,
