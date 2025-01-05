@@ -34,6 +34,17 @@ router.get('/count', async (req, res) => {
     }
 });
 
+// Get the total number of QR codes not associated with an event
+router.get('/count_not_event', async (req, res) => {
+    try {
+        const qrCodeCount = await Lqrcode.countDocuments({ lqrcode_is_event: false });
+        res.status(200).json({ qrCodeCount });
+    } catch (error) {
+        console.error('Error fetching QR code count:', error);
+        res.status(500).json({ message: error.message });
+    }
+});
+
 // Get a single lqrcode
 router.get('/:id', getLqrcode, (req, res) => {
     res.json(res.lqrcode);

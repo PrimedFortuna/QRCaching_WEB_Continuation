@@ -156,7 +156,6 @@ router.post('/accept_event', async (req, res) => {
     }
 });
 
-
 // Get a single event by ID
 router.get('/:id', async (req, res) => {
     try {
@@ -189,7 +188,7 @@ router.patch('/:id', async (req, res) => {
     }
 });
 
-// Delete an event by ID
+// Delete an event by ID and the lqe associated with it and the lqrcode
 router.delete('/:id', async (req, res) => {
     try {
         const sanitizedId = sanitize(req.params.id);
@@ -197,6 +196,16 @@ router.delete('/:id', async (req, res) => {
         if (!event) {
             return res.status(404).json({ message: 'Event not found' });
         }
+
+        // Delete the lqe associated with the event
+        await Lqe.deleteMany({ lqe_events_id: sanitizedId });
+
+        // Delete the lqrcode associated with the event
+        const lqes = await Lqe.find({ lqe_events_id: sanitizedId });
+        for (const lqe of lqes) {
+            await Lqrcode.deleteOne({ _id: lqe.lqe_lqrcode_id });
+        }
+
         await event.deleteOne();
         res.json({ message: 'Event deleted' });
     } catch (error) {

@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
     updateButtons();
 
     // Fetch the number of QR codes from the backend
-    fetch('http://maltinha.ddns.net/lqrcodes/count')
+    fetch('http://maltinha.ddns.net/lqrcodes/count_not_event')
         .then(response => response.json())
         .then(data => {
             const qrCodeCount = data.qrCodeCount;
