@@ -140,7 +140,7 @@ router.post('/accept_event', async (req, res) => {
             const savedQrCode = await newQrCode.save();
 
             const newLqe = new Lqe({
-                lqe_lqrcode_id: savedQrCode.id,
+                lqe_lqrcode_id: savedQrCode._id,
                 lqe_events_id: eventId,
             });
 

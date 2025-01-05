@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const lqrcodeSchema = new mongoose.Schema({
-    lqrcode_id: { type: Number, required: true },
+    lqrcode_id: { type: Number, required: false },
     lqrcode_longitude: { type: Number, default: 0 },
     lqrcode_latitude: { type: Number, default: 0 },
     lqrcode_altitude: { type: Number, default: 0 },
