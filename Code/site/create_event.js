@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(data => {
                 if (data._id) {
                     alert("Event created successfully!");
-                    window.location.href = "/create_event.html";
+                    window.location.href = "/index.html";
                     // Redirect or perform any other actions upon success
                 } else {
                     alert("Error: " + data.message);

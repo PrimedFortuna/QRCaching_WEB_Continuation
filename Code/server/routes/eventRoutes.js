@@ -171,6 +171,24 @@ router.get('/:id', async (req, res) => {
     }
 });
 
+// Get all QR codes associated with this event
+router.get('/qrcodes_associated/:id', async (req, res) => {
+    try {
+        const sanitizedId = sanitize(req.params.id);
+        const lqes = await Lqe.find({ lqe_events_id: sanitizedId });
+        const qrCodes = [];
+
+        for (const lqe of lqes) {
+            const qrCode = await Lqrcode.findById(lqe.lqe_lqrcode_id);
+            qrCodes.push(qrCode);
+        }
+
+        res.json(qrCodes);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
 // Update an event by ID
 router.patch('/:id', async (req, res) => {
     try {

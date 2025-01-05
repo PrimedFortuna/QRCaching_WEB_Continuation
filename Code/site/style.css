@@ -328,7 +328,7 @@ canvas {
 
 /*Floor Plan*/
 
-.svg-container {
+.map-container {
     position: absolute;
     top: 40%;
     left: 30%;

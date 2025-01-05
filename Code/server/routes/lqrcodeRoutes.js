@@ -46,7 +46,7 @@ router.get('/count_not_event', async (req, res) => {
 });
 
 //Delete all lqrcodes
-router.delete('/', async (req, res) => {
+router.delete('/delete_all', async (req, res) => {
     try {
         await Lqrcode.deleteMany();
         res.json({ message: 'All lqrcodes deleted' });
