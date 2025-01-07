@@ -40,6 +40,10 @@ document.addEventListener('DOMContentLoaded', async function () {
 
         // Create checkboxes for all the QR codes
         for (let i = 1; i <= numberOfQrCodes; i++) {
+            const label = document.createElement('label');
+            label.htmlFor = `QrCode ${i}`;
+            label.textContent = `QR Code ${i}`;
+
             const checkbox = document.createElement('input');
             checkbox.type = 'checkbox';
             checkbox.id = `${i}`;
@@ -47,15 +51,33 @@ document.addEventListener('DOMContentLoaded', async function () {
             checkbox.value = `qr-${i}`;
             checkbox.classList.add('qr-checkbox');
 
-            const label = document.createElement('label');
-            label.htmlFor = `QrCode ${i}`;
-            label.textContent = `QR Code ${i}`;
-
-            qrCheckboxesContainer.appendChild(checkbox);
             qrCheckboxesContainer.appendChild(label);
+            qrCheckboxesContainer.appendChild(checkbox);
         }
 
     } catch (error) {
         console.error('Error fetching and displaying event map or QR codes:', error.message);
     }
 });
+
+// Get the selected checkboxes that is called when the buuton findPath is clicked
+function getSelectedCheckboxes() {
+    const qrCheckboxes = document.querySelectorAll('.qr-checkbox');
+    qrCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function () {
+            // Get the checked checkboxes
+            const checkedCheckboxes = Array.from(qrCheckboxes).filter(checkbox => checkbox.checked);
+
+            // Get the ids of the checked checkboxes
+            const checkedIds = checkedCheckboxes.map(checkbox => checkbox.id);
+
+            // Add the checked checkboxes' ids to the query string
+            const newQueryString = checkedIds.join(',');
+
+            //print the querry string on the console
+            console.log(newQueryString);
+
+        });
+    });
+
+}
