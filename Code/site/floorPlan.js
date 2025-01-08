@@ -11,6 +11,9 @@ document.addEventListener('DOMContentLoaded', async function () {
         // Fetch the event data from the server
         const response = await fetch(`/events/${eventId}`);
 
+        // Fetch the first qr id code from the event
+        const qrCodeResponse = await fetch(`/first_qrcode/${eventId}`);
+
         if (!response.ok) {
             throw new Error(`Error fetching event: ${response.statusText}`);
         }
@@ -46,7 +49,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
             const checkbox = document.createElement('input');
             checkbox.type = 'checkbox';
-            checkbox.id = `${i}`;
+            checkbox.id = `${qrCodeResponse+i}`;
             checkbox.name = `QrCode ${i}`;
             checkbox.value = `qr-${i}`;
             checkbox.classList.add('qr-checkbox');
@@ -87,7 +90,7 @@ function getSelectedCheckboxes() {
                 //Compare the ids on the string and get the qrcodes that have those ids
                 const qrCodeDataString = `${qrCodeX},${qrCodeY}`;
                 for (let i = 0; i < checkedIds.length; i++) {
-                    fetch(`/qrcodes/${checkedIds[i+1]}`)
+                    fetch(`/lqrcodes/${checkedIds[i+1]}`)
                         .then(response => {
                             if (!response.ok) {
                                 throw new Error(`Error fetching QR code: ${response.statusText}`);

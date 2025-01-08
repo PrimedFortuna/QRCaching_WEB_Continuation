@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const Lqe = require('../models/lqe');
+const Lqrcode = require('../models/lqrcode');
+const Event = require('../models/event');
 const sanitize = require('mongo-sanitize');
 
 // Create a new lqe
@@ -24,6 +26,24 @@ router.get('/', async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 });
+
+//Get the id of the first qrcode on an specific event
+router.get('/first_qrcode/:id', async (req, res) => {
+    try {
+        const eventID = sanitize(req.params.id);
+        const lqes = await Lqe.findMany({ lqe_event_id: eventID });
+        if (!lqe) {
+            return res.status(404).json({ message: 'Lqe not found' });
+        }
+        const lqrcodes = await Lqrcode.findMany({ _Id: lqe.lqe_qrcode_id }).sort({ lqrcode_id: 1 });
+        const qrcodeId = lqrcodes[0].qrcodeId_id;
+        res.json(qrcodeId);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+
 
 // Get a single lqe
 router.get('/:id', async (req, res) => {

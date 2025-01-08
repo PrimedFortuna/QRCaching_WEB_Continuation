@@ -43,7 +43,7 @@ function initMap() {
         { lat: 38.712345, lng: -9.140200, title: "QR Code 3 - Cais das Colunas" },
         { lat: 38.713500, lng: -9.137800, title: "QR Code 4 - Arco da Rua Augusta" },
     ];
-    
+
     qrCodes.forEach(qrCode => {
         const marker = new google.maps.Marker({
             position: { lat: qrCode.lat, lng: qrCode.lng },
@@ -60,10 +60,16 @@ function initMap() {
 
     //comment after prot
 
+
+
+    // Fetch QR codes from the server that are not in any event
     fetch('http://maltinha.ddns.net/lqrcodes')
         .then(response => response.json())
         .then(lqrcodes => {
             lqrcodes.forEach(qrcode => {
+                if (qrcode.lqrcode_is_event) {
+                    return;
+                }
                 const marker = new google.maps.Marker({
                     position: { lat: qrcode.lqrcode_latitude, lng: qrcode.lqrcode_longitude },
                     map: map,
