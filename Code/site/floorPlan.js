@@ -104,6 +104,19 @@ function getSelectedCheckboxes() {
 
                         })
                 }
+
+                //Fetch the svg map from the event
+                fetch(`/events/${eventId}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`Error fetching event: ${response.statusText}`);
+                        }
+                        return response.json();
+                    })
+                    .then(eventData => {
+                        // Get the event map
+                        const eventSVG = eventData.events_svg;
+                    })
             });
         });
     });
