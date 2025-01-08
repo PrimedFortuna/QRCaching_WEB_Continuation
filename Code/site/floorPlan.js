@@ -60,24 +60,51 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
 });
 
-// Get the selected checkboxes that is called when the buuton findPath is clicked
+// Get the selected checkboxes that is called when the button findPath is clicked
 function getSelectedCheckboxes() {
-    const qrCheckboxes = document.querySelectorAll('.qr-checkbox');
-    qrCheckboxes.forEach(checkbox => {
-        checkbox.addEventListener('change', function () {
-            // Get the checked checkboxes
-            const checkedCheckboxes = Array.from(qrCheckboxes).filter(checkbox => checkbox.checked);
 
-            // Get the ids of the checked checkboxes
-            const checkedIds = checkedCheckboxes.map(checkbox => checkbox.id);
+    // Find the button that is clicked
+    const findPathButton = document.getElementById('findPath');
+    if (!findPathButton) {
+        console.error('Find Path button not found in the DOM.');
+        return;
+    }
 
-            // Add the checked checkboxes' ids to the query string
-            const newQueryString = checkedIds.join(',');
+    // Add an event listener to the button
+    findPathButton.addEventListener('click', function () {
+        const qrCheckboxes = document.querySelectorAll('.qr-checkbox');
+        qrCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', function () {
+                // Get the checked checkboxes
+                const checkedCheckboxes = Array.from(qrCheckboxes).filter(checkbox => checkbox.checked);
 
-            //print the querry string on the console
-            console.log(newQueryString);
+                // Get the ids of the checked checkboxes
+                const checkedIds = checkedCheckboxes.map(checkbox => checkbox.id);
 
+                // Add the checked checkboxes' ids to the query string
+                const newQueryString = checkedIds.join(',');
+
+                //Compare the ids on the string and get the qrcodes that have those ids
+                const qrCodeDataString = `${qrCodeX},${qrCodeY}`;
+                for (let i = 0; i < checkedIds.length; i++) {
+                    fetch(`/qrcodes/${checkedIds[i+1]}`)
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error(`Error fetching QR code: ${response.statusText}`);
+                            }
+                            return response.json();
+                        })
+                        .then(qrCodeData => {
+                            // Get the qr code data
+                            const qrCodeX = qrCodeData.lqrcode_longitude;
+                            const qrCodeY = qrCodeData.lqrcode_latitude;
+
+                            // Put the qr code data in the query string
+                            qrCodeDataString = `${i+1},${qrCodeX},${qrCodeY}`;
+
+                        })
+                }
+            });
         });
     });
-
 }
