@@ -334,8 +334,7 @@ canvas {
     left: 30%;
     transform: translate(-50%, -50%);
     text-align: center;
-    width: 150%;
-    height: 150%;
+    width: 100%;
 }
 
 
