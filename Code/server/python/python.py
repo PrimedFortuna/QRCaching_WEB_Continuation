@@ -1,16 +1,12 @@
 import xml.etree.ElementTree as ET
-import matplotlib.pyplot as plt
-import numpy as np
+from flask import Flask, request, jsonify
 from scipy.spatial import distance
 from queue import PriorityQueue
-from flask import Flask, request, jsonify
 
 
-
-
-def parse_svg(svg_path):
-    tree = ET.parse(svg_path)
-    root = tree.getroot()
+# Parse the SVG to extract walls
+def parse_svg(svg_content):
+    root = ET.fromstring(svg_content)
     walls = []
 
     for elem in root.iter():
@@ -25,6 +21,8 @@ def parse_svg(svg_path):
 
     return walls
 
+
+# A* pathfinding
 def find_shortest_path(qr_codes, walls):
     def is_collision(point, walls):
         for wall in walls:
@@ -52,7 +50,6 @@ def find_shortest_path(qr_codes, walls):
         while not open_set.empty():
             _, current = open_set.get()
             if current == goal:
-                
                 path = []
                 while current in came_from:
                     path.append(current)
@@ -70,31 +67,38 @@ def find_shortest_path(qr_codes, walls):
         return []
 
     path = []
-    qr_sequence = [qr_codes[0]]  
+    qr_sequence = [qr_codes[0]]
     current = qr_codes[0]
     for next_code in qr_codes[1:]:
-        path += a_star(current, next_code)
-        qr_sequence.append(next_code)
-        current = next_code
-    print(qr_sequence)
-    return qr_sequence
+        segment = a_star(current, next_code)
+        if segment:
+            path += segment
+            qr_sequence.append(next_code)
+            current = next_code
+    return path, qr_sequence
 
-app = Flask(__name__)  # Initialize the Flask app
+
+# Flask app
+app = Flask(__name__)
+
 
 @app.route('/find-path', methods=['POST'])
 def find_path():
     data = request.get_json()
-    eventSVG = data['eventSVG']
-    selected_qr_codes = data['qrCodeDataString']
+    svg_content = data['eventSVG']
+    qr_codes_raw = data['qrCodeDataString']
 
-    # Parse the SVG file
-    walls = parse_svg(eventSVG)
+    # Parse QR codes and walls
+    qr_codes = [
+        tuple(map(float, qr_code.split(','))[1:]) for qr_code in qr_codes_raw
+    ]
+    walls = parse_svg(svg_content)
 
-    # Call the Python function
-    qr_sequence = find_shortest_path(selected_qr_codes, walls)
+    # Calculate the shortest path
+    path, qr_sequence = find_shortest_path(qr_codes, walls)
 
-    # Return the result as JSON
-    return jsonify({'qr_sequence': qr_sequence})
+    return jsonify({'qr_sequence': qr_sequence, 'path': path})
+
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=5000)  # Bind to localhost (127.0.0.1)
+    app.run(host='127.0.0.1', port=5000)
