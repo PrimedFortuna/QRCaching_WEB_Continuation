@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
     updateButtons();
 
     // Fetch the number of QR codes from the backend
-    fetch('http://maltinha.ddns.net/lqrcodes/count_not_event')
+    fetch('https://maltinha.ddns.net/lqrcodes/count_not_event')
         .then(response => response.json())
         .then(data => {
             const qrCodeCount = data.qrCodeCount;
@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     // Fetch the confirmed events from the backend
-    fetch('http://maltinha.ddns.net/events/confirmed')
+    fetch('https://maltinha.ddns.net/events/confirmed')
         .then(response => response.json())
         .then(events => {
             if (events.length === 0) {

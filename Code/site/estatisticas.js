@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var Permanent = 0;
 
     // Fetch QR codes from the local server and process them
-    fetch('http://maltinha.ddns.net/lqrcodes')
+    fetch('https://maltinha.ddns.net/lqrcodes')
         .then(response => response.json()) // Convert the response to JSON
         .then(lqrcodes => {
             // Count the types of QR codes
@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', function () {
     ];
 
     // Fetch posts from the local server and process them
-    fetch('http://85.246.91.101/posts')
+    fetch('https://85.246.91.101/posts')
         .then(response => response.json()) // Convert the response to JSON
         .then(posts => {
             console.log('Posts:', posts); // Log the posts data

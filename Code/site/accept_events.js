@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const eventList = document.getElementById('eventsToAccept_list');
 
     // Fetch confirmed events
-    fetch('http://maltinha.ddns.net/events/unconfirmed')
+    fetch('https://maltinha.ddns.net/events/unconfirmed')
         .then(response => response.json())
         .then(events => {
             if (events.length === 0) {

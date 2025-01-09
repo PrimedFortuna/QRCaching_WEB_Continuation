@@ -63,7 +63,7 @@ function initMap() {
 
 
     // Fetch QR codes from the server that are not in any event
-    fetch('http://maltinha.ddns.net/lqrcodes')
+    fetch('https://maltinha.ddns.net/lqrcodes')
         .then(response => response.json())
         .then(lqrcodes => {
             lqrcodes.forEach(qrcode => {
@@ -90,10 +90,10 @@ function handleWaypointSelection(marker) {
     const markerIndex = selectedWaypoints.indexOf(marker);
     if (markerIndex === -1) {
         selectedWaypoints.push(marker);
-        marker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png');
+        marker.setIcon('https://maps.google.com/mapfiles/ms/icons/blue-dot.png');
     } else {
         selectedWaypoints.splice(markerIndex, 1);
-        marker.setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png');
+        marker.setIcon('https://maps.google.com/mapfiles/ms/icons/red-dot.png');
     }
 
     if (selectedWaypoints.length > 1) {

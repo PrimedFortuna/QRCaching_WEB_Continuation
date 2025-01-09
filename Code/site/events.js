@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Fetch the event details by ID
-    fetch(`http://maltinha.ddns.net/events/${eventId}`)
+    fetch(`https://maltinha.ddns.net/events/${eventId}`)
         .then(response => response.json())
         .then(event => {
             console.log('Event Data:', event); // Log the event data
