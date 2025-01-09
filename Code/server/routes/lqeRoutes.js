@@ -31,18 +31,26 @@ router.get('/', async (req, res) => {
 router.get('/first_qrcode/:id', async (req, res) => {
     try {
         const eventID = sanitize(req.params.id);
-        const lqes = await Lqe.findMany({ lqe_event_id: eventID });
-        if (!lqe) {
+
+        // Fetch all Lqe documents matching the event ID
+        const lqes = await Lqe.find({ lqe_event_id: eventID });
+        if (!lqes || lqes.length === 0) {
             return res.status(404).json({ message: 'Lqe not found' });
         }
-        const lqrcodes = await Lqrcode.findMany({ _Id: lqe.lqe_qrcode_id }).sort({ lqrcode_id: 1 });
-        const qrcodeId = lqrcodes[0].qrcodeId_id;
-        res.json(qrcodeId);
+
+        // Fetch Lqrcode documents associated with the first Lqe
+        const lqrcodes = await Lqrcode.find({ _Id: lqes[0].lqe_lqrcode_id });
+        if (!lqrcodes || lqrcodes.length === 0) {
+            return res.status(404).json({ message: 'Lqrcode not found' });
+        }
+
+        // Return the ID of the first QR code
+        const lqrcodeId = lqrcodes.lqrcode_id; 
+        res.json({ lqrcodeId });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 });
-
 
 
 // Get a single lqe
