@@ -3,12 +3,15 @@ import matplotlib.pyplot as plt
 import numpy as np
 from scipy.spatial import distance
 from queue import PriorityQueue
+from flask import Flask, request, jsonify
+
+
+app = Flask(__name__)  # Initialize the Flask app
 
 def parse_svg(svg_path):
     tree = ET.parse(svg_path)
     root = tree.getroot()
     walls = []
-    qr_codes = []
 
     for elem in root.iter():
         if elem.tag.endswith('rect'):
@@ -19,13 +22,8 @@ def parse_svg(svg_path):
                 width = float(elem.attrib['width'])
                 height = float(elem.attrib['height'])
                 walls.append(((x, y), (x + width, y + height)))
-            elif 'fill:#000000' in style:  # black QR codes
-                x = float(elem.attrib['x'])
-                y = float(elem.attrib['y'])
-                qr_codes.append((x, y))
 
-    return walls, qr_codes
-
+    return walls
 
 def find_shortest_path(qr_codes, walls):
     def is_collision(point, walls):
@@ -79,28 +77,22 @@ def find_shortest_path(qr_codes, walls):
         qr_sequence.append(next_code)
         current = next_code
     print(qr_sequence)
-    return path, qr_sequence
+    return qr_sequence
 
+@app.route('/find-path', methods=['POST'])
+def find_path():
+    data = request.get_json()
+    eventSVG = data['eventSVG']
+    selected_qr_codes = data['qrCodeDataString']
 
-def save_svg_with_path(svg_path, qr_sequence, output_path):
-    tree = ET.parse(svg_path)
-    root = tree.getroot()
+    # Parse the SVG file
+    walls = parse_svg(eventSVG)
 
-    path_element = ET.Element("polyline", {
-        "points": " ".join(f"{x},{y}" for x, y in qr_sequence),
-        "style": "fill:none;stroke:blue;stroke-width:5" 
-    })
-    root.append(path_element)  
+    # Call the Python function
+    qr_sequence = find_shortest_path(selected_qr_codes, walls)
 
-    tree.write(output_path)
+    # Return the result as JSON
+    return jsonify({'qr_sequence': qr_sequence})
 
-
-
-svg_file = "floorPlan.svg" 
-output_svg = "output_with_path.svg"  
-
-walls, qr_codes = parse_svg(svg_file)
-path, qr_sequence = find_shortest_path(qr_codes, walls)
-save_svg_with_path(svg_file, qr_sequence, output_svg)
-
-print(f"Path saved to {output_svg}")
+if __name__ == '__main__':
+    app.run(debug=True)
