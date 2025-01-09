@@ -6,7 +6,7 @@ from queue import PriorityQueue
 from flask import Flask, request, jsonify
 
 
-app = Flask(__name__)  # Initialize the Flask app
+
 
 def parse_svg(svg_path):
     tree = ET.parse(svg_path)
@@ -79,6 +79,8 @@ def find_shortest_path(qr_codes, walls):
     print(qr_sequence)
     return qr_sequence
 
+app = Flask(__name__)  # Initialize the Flask app
+
 @app.route('/find-path', methods=['POST'])
 def find_path():
     data = request.get_json()
@@ -95,4 +97,4 @@ def find_path():
     return jsonify({'qr_sequence': qr_sequence})
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='127.0.0.1', port=5000)  # Bind to localhost (127.0.0.1)
