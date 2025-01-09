@@ -95,4 +95,4 @@ def find_path():
     return jsonify({'qr_sequence': qr_sequence})
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000)
