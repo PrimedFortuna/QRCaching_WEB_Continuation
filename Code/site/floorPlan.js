@@ -18,13 +18,18 @@ document.addEventListener('DOMContentLoaded', async function () {
         const eventData = await response.json();
 
         // Fetch the first qr code id from the event
-        const qrCodeData = await fetch(`/lqes/first_qrcode/${eventId}`);
+        const qrResponse = await fetch(`/lqes/first_qrcode/${eventId}`);
 
-        if (!qrCodeData.ok) {
-            throw new Error(`Error fetching first QR code: ${qrCodeData.statusText}`);
+        if (!qrResponse.ok) {
+            throw new Error(`Error fetching first QR code: ${qrResponse.statusText}`);
         }
-        
-        const qrCodeResponse = await qrCodeData.json(); // Obter o JSON da resposta
+        const { lowestQrCodeId } = await qrResponse.json();
+
+        if (typeof lowestQrCodeId !== "number") {
+            console.error('Invalid or missing lowest QR code ID.');
+            return;
+        }
+
 
         // Find the div where the event map should be displayed
         const svgContainer = document.querySelector('.map-container');
@@ -48,16 +53,18 @@ document.addEventListener('DOMContentLoaded', async function () {
         }
 
         // Create checkboxes for all the QR codes
-        for (let i = 1; i <= numberOfQrCodes; i++) {
+        for (let i = 0; i < numberOfQrCodes; i++) {
+            const numericId = lowestQrCodeId + i;
+
             const label = document.createElement('label');
             label.htmlFor = `QrCode ${i}`;
             label.textContent = `QR Code ${i}`;
 
             const checkbox = document.createElement('input');
             checkbox.type = 'checkbox';
-            checkbox.id = qrCodeResponse + i;
+            checkbox.id = numericId;
             checkbox.name = `QrCode ${i}`;
-            checkbox.value = `qr-${i}`;
+            checkbox.value = numericId;
             checkbox.classList.add('qr-checkbox');
 
             qrCheckboxesContainer.appendChild(label);
