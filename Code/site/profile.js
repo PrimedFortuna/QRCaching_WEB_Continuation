@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById("profile_name").textContent = username;
 
         // Fetch number of QR codes from the database
-        fetch(`http://maltinha.ddns.net/users/${userId}`)
+        fetch(`/ulqs/num_of_qrcodes/${userId}`)
             .then(response => response.json())
             .then(data => {
                 const qrCodeCount = data.qrCodeCount;
@@ -30,3 +30,4 @@ document.addEventListener("DOMContentLoaded", function() {
         window.location.href = "login.html";
     }
 });
+
