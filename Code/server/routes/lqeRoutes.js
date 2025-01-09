@@ -34,13 +34,13 @@ router.get('/first_qrcode/:id', async (req, res) => {
 
         // Fetch all Lqe documents matching the event ID
         const lqes = await Lqe.find({ lqe_event_id: eventID });
-        if (!lqes || lqes.length === 0) {
+        if (!lqes) {
             return res.status(404).json({ message: 'Lqe not found' });
         }
 
         // Fetch Lqrcode documents associated with the first Lqe
         const lqrcodes = await Lqrcode.find({ _Id: lqes[0].lqe_lqrcode_id });
-        if (!lqrcodes || lqrcodes.length === 0) {
+        if (!lqrcodes) {
             return res.status(404).json({ message: 'Lqrcode not found' });
         }
 
