@@ -93,3 +93,6 @@ def find_path():
 
     # Return the result as JSON
     return jsonify({'qr_sequence': qr_sequence})
+
+if __name__ == '__main__':
+    app.run(debug=True)
