@@ -387,6 +387,17 @@ canvas {
 
 /* Create Event */
 
+.event_showcase_content {
+    position: relative;
+    width: 150%;
+    margin-left: -50%;
+    background: rgb(255, 255, 255, 0.95);
+    border-radius: 20px;
+    box-shadow: 0 14px 24px rgba(72, 33, 100, 0.8);
+    padding: 30px;
+    text-align: center;
+}
+
 #createEventForm {
     display: flex;
     flex-direction: column;
@@ -395,7 +406,7 @@ canvas {
     background: rgb(255, 255, 255, 0.95);
     border-radius: 20px;
     box-shadow: 0 14px 24px rgba(72, 33, 100, 0.8);
-    width: 90%;
+    width: 150%;
     max-width: 500px;
     margin: 50px auto;
     box-sizing: border-box;
