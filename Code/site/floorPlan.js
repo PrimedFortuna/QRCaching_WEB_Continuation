@@ -8,6 +8,15 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
 
     try {
+        // Fetch the event data from the server
+        const response = await fetch(`/events/${eventId}`);
+
+        if (!response.ok) {
+            throw new Error(`Error fetching event: ${response.statusText}`);
+        }
+
+        const eventData = await response.json();
+
         // Fetch the first qr code id from the event
         const qrCodeData = await fetch(`/lqes/first_qrcode/${eventId}`);
 
@@ -16,9 +25,6 @@ document.addEventListener('DOMContentLoaded', async function () {
         }
         
         const qrCodeResponse = await qrCodeData.json(); // Obter o JSON da resposta
-
-
-        const eventData = await response.json();
 
         // Find the div where the event map should be displayed
         const svgContainer = document.querySelector('.map-container');
