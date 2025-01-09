@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         const response = await fetch(`/events/${eventId}`);
 
         // Fetch the first qr code id from the event
-        const qrCodeResponse = await fetch(`/first_qrcode/${eventId}`);
+        const qrCodeResponse = await fetch(`/lqes/first_qrcode/${eventId}`);
 
         if (!response.ok) {
             throw new Error(`Error fetching event: ${response.statusText}`);
