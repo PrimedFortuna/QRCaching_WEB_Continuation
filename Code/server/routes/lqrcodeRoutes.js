@@ -55,6 +55,21 @@ router.delete('/delete_all', async (req, res) => {
     }
 });
 
+// Get a single lqrcode by lqrcode_id
+router.get('/find_by_id/:lqrcode_id', async (req, res) => {
+    try {
+        const lqrcode = await Lqrcode.findOne({ lqrcode_id: req.params.lqrcode_id });
+        if (!lqrcode) {
+            return res.status(404).json({ message: 'Lqrcode not found' });
+        }
+        res.json(lqrcode);
+    } catch (error) {
+        console.error('Error fetching Lqrcode by lqrcode_id:', error);
+        res.status(500).json({ message: error.message });
+    }
+});
+
+
 // Get a single lqrcode
 router.get('/:id', getLqrcode, (req, res) => {
     res.json(res.lqrcode);

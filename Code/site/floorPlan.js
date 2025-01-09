@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         // Fetch the event data from the server
         const response = await fetch(`/events/${eventId}`);
 
-        // Fetch the first qr id code from the event
+        // Fetch the first qr code id from the event
         const qrCodeResponse = await fetch(`/first_qrcode/${eventId}`);
 
         if (!response.ok) {
@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
             const checkbox = document.createElement('input');
             checkbox.type = 'checkbox';
-            checkbox.id = `${qrCodeResponse+i}`;
+            checkbox.id = `${qrCodeResponse + i}`;
             checkbox.name = `QrCode ${i}`;
             checkbox.value = `qr-${i}`;
             checkbox.classList.add('qr-checkbox');
@@ -83,44 +83,69 @@ function getSelectedCheckboxes() {
 
                 // Get the ids of the checked checkboxes
                 const checkedIds = checkedCheckboxes.map(checkbox => checkbox.id);
-
-                // Add the checked checkboxes' ids to the query string
-                const newQueryString = checkedIds.join(',');
-
-                //Compare the ids on the string and get the qrcodes that have those ids
-                const qrCodeDataString = `${qrCodeX},${qrCodeY}`;
-                for (let i = 0; i < checkedIds.length; i++) {
-                    fetch(`/lqrcodes/${checkedIds[i+1]}`)
-                        .then(response => {
-                            if (!response.ok) {
-                                throw new Error(`Error fetching QR code: ${response.statusText}`);
-                            }
-                            return response.json();
-                        })
-                        .then(qrCodeData => {
-                            // Get the qr code data
-                            const qrCodeX = qrCodeData.lqrcode_longitude;
-                            const qrCodeY = qrCodeData.lqrcode_latitude;
-
-                            // Put the qr code data in the query string
-                            qrCodeDataString = `${i+1},${qrCodeX},${qrCodeY}`;
-
-                        })
-                }
-
-                //Fetch the svg map from the event
-                fetch(`/events/${eventId}`)
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error(`Error fetching event: ${response.statusText}`);
-                        }
-                        return response.json();
-                    })
-                    .then(eventData => {
-                        // Get the event map
-                        const eventSVG = eventData.events_svg;
-                    })
             });
         });
+
+        //Compare the ids on the string and get the qrcodes that have those ids
+        let qrCodeDataString = [];
+        for (let i = 0; i < checkedIds.length; i++) {
+            fetch(`/lqrcodes/find_by_id/${checkedIds[i]}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Error fetching QR code: ${response.statusText}`);
+                    }
+                    return response.json();
+                })
+                .then(qrCodeData => {
+                    // Get the qr code data
+                    const qrCodeX = qrCodeData.lqrcode_longitude;
+                    const qrCodeY = qrCodeData.lqrcode_latitude;
+
+                    // Put the qr code data in the query string
+                    qrCodeDataString[i] = `${checkedIds[i]},${qrCodeX},${qrCodeY}`;
+
+                })
+        }
+
+        //Fetch the svg map from the event
+        fetch(`/events/${eventId}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Error fetching event: ${response.statusText}`);
+                }
+                return response.json();
+            })
+            .then(eventData => {
+                // Get the event map
+                const eventSVG = eventData.events_svg;
+            })
+
+        // Get the qr code sequence
+        async function getQrCodeSequence() {
+            // Send the qrCodeDataString and eventSVG to the backend
+            const pathData = {
+                qrCodeDataString: qrCodeDataString,
+                eventSVG: eventSVG
+            };
+
+            const response = await fetch('/find_path', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(pathData)
+            });
+
+            if (!response.ok) {
+                console.error('Error sending data to backend');
+                return;
+            }
+
+            const result = await response.json();
+            console.log('Received qr_sequence:', result.qr_sequence);
+
+        }
+        getQrCodeSequence();
+
     });
 }
