@@ -40,7 +40,8 @@ router.get('/first_qrcode/:id', async (req, res) => {
         }
 
         // Find the QR code with the lowest lqrcode_id among the linked ones
-        let lowestQrCodeId = lqes[0].lqe_lqrcode_id;
+        let QrCode = await Lqrcode.findById(lqes[0].lqe_lqrcode_id).exec();
+        let lowestQrCodeId = QrCode.lqrcode_id;
         for (let i = 1; i < lqes.length; i++) {
             if (lqes[i].lqe_lqrcode_id < lowestQrCodeId) {
                 lowestQrCodeId = lqes[i].lqe_lqrcode_id;
