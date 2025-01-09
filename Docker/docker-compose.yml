@@ -1,0 +1,50 @@
+version: "3.8"
+
+services:
+  app:
+    build:
+      context: .
+    deploy:
+      replicas: 3
+    volumes:
+      - ./app/Code/server:/app/server
+      - ./python-app:/app/python-app
+    environment:
+      - NODE_ENV=development
+      - FLASK_ENV=development
+    restart: always
+    ports:
+    - "80"
+    networks:
+      - app-network
+
+  mongo1:
+    image: mongo:latest
+    volumes:
+      - ./data/mongo1:/data/db
+    networks:
+      - app-network
+
+  mongo2:
+    image: mongo:latest
+    volumes:
+      - ./data/mongo2:/data/db
+    networks:
+      - app-network
+
+  nginx_proxy:
+    image: nginx
+    ports:
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - /etc/letsencrypt/live/maltinha.ddns.net/fullchain.pem:/etc/letsencrypt/live/maltinha.ddns.net/fullchain.pem
+      - /etc/letsencrypt/live/maltinha.ddns.net/privkey.pem:/etc/letsencrypt/live/maltinha.ddns.net/privkey.pem
+    restart: always
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
