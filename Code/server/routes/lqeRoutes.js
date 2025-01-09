@@ -39,21 +39,15 @@ router.get('/first_qrcode/:id', async (req, res) => {
             return res.status(404).json({ message: 'No Lqes found for this event' });
         }
 
-        // Extract all linked QR code IDs
-        const lqrcodeIds = lqes.map(lqe => lqe.lqe_lqrcode_id);
-
         // Find the QR code with the lowest lqrcode_id among the linked ones
-        const lowestQrCode = await Lqrcode.find({ _id: { $in: lqrcodeIds } })
-            .sort({ lqrcode_id: 1 }) // Sort by lqrcode_id in ascending order
-            .limit(1) // Only get the lowest
-            .exec();
-
-        if (!lowestQrCode || lowestQrCode.length === 0) {
-            return res.status(404).json({ message: 'No QR codes found' });
+        let lowestQrCodeId = lqes[0].lqe_lqrcode_id;
+        for (let i = 1; i < lqes.length; i++) {
+            if (lqes[i].lqe_lqrcode_id < lowestQrCodeId) {
+                lowestQrCodeId = lqes[i].lqe_lqrcode_id;
+            }           
         }
-
         // Return the lowest QR code
-        res.json({ lowestQrCodeId: lowestQrCode[0]._id, lqrcodeId: lowestQrCode[0].lqrcode_id });
+        res.json({lowestQrCodeId});
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
