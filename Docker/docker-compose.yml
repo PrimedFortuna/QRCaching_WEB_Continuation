@@ -15,6 +15,7 @@ services:
     restart: always
     ports:
     - "80"
+    - "5000"
     networks:
       - app-network
 
