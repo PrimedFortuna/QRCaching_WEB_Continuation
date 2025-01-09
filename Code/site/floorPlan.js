@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
             const checkbox = document.createElement('input');
             checkbox.type = 'checkbox';
-            checkbox.id = `${qrCodeResponse + i}`;
+            checkbox.id = qrCodeResponse + i;
             checkbox.name = `QrCode ${i}`;
             checkbox.value = `qr-${i}`;
             checkbox.classList.add('qr-checkbox');
