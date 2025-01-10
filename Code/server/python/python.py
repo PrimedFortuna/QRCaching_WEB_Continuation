@@ -90,7 +90,7 @@ def find_path():
 
     # Parse QR codes and walls
     qr_codes = [
-        tuple(map(float, qr_code.split(','))[1:]) for qr_code in qr_codes_raw
+        tuple(list(map(float, qr_code.split(',')))[1:]) for qr_code in qr_codes_raw
     ]
     walls = parse_svg(svg_content)
 
