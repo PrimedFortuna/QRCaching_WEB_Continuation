@@ -120,6 +120,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             });
 
             const eventSVG = eventData.events_svg;
+            alert('qrCodeDataString:', qrCodeDataString);
 
             // Send data to backend
             const pathData = { qrCodeDataString, eventSVG };
