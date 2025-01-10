@@ -137,37 +137,14 @@ document.addEventListener('DOMContentLoaded', async function () {
             const result = await response.json();
             console.log('Received QR sequence:', result.qr_sequence);
 
-            function convertToLongitudeLatitude(qrCode) {
-                // Assuming the QR code string is in the format "longitude,latitude"
-                const [longitudeStr, latitudeStr] = qrCode.split(',');
-            
-                // Convert to float to ensure numerical values
-                const longitude = parseFloat(longitudeStr.trim());
-                const latitude = parseFloat(latitudeStr.trim());
-            
-                // Return the longitude and latitude as an object
-                return { longitude, latitude };
-            }
-
             // Display the received QR sequence in the path-output div
             const pathOutputDiv = document.getElementById('path-output');
             if (pathOutputDiv) {
                 for (let i = 0; i < result.qr_sequence.length; i++) {
                     const qrCode = result.qr_sequence[i];
 
-                    // Convert (x, y) to longitude and latitude
-                    const { longitude, latitude } = convertToLongitudeLatitude(qrCode);
-
-                    // Fetch QR code data using longitude and latitude
-                    const qrCodeData = await fetch(`/lqrcodes/find_by_longitude_latitude/${longitude}/${latitude}`).then(response => {
-                        if (!response.ok) {
-                            throw new Error(`Error fetching QR code: ${response.statusText}`);
-                        }
-                        return response.json();
-                    });
-
                     const qrCodeElement = document.createElement('p');
-                    qrCodeElement.textContent = `QR Code ${qrCodeData.lqrcode_id})`;
+                    qrCodeElement.textContent = `QR Code ${qrCode})`;
                     pathOutputDiv.appendChild(qrCodeElement);
                 }
             }
