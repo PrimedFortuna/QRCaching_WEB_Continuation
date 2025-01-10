@@ -136,15 +136,18 @@ document.addEventListener('DOMContentLoaded', async function () {
 
             const result = await response.json();
             console.log('Received QR sequence:', result.qr_sequence);
-            alert('Received QR sequence:', result.qr_sequence);
+
+            // Display the received QR sequence in the path-output div
+            const pathOutputDiv = document.getElementById('path-output');
+            if (pathOutputDiv) {
+                pathOutputDiv.innerHTML = `<h3>QR Code Sequence</h3><p>${result.qr_sequence}</p>`;
+            }
+            
         } catch (error) {
             console.error('Error:', error);
         }
 
-        // Now, define pathOrder and display it
-        const pathOrder = result.qr_sequence; // Assuming this is the correct structure
-        const pathOutput = document.getElementById('path-output');
-        pathOutput.textContent = `Order of QR codes to collect: ${pathOrder.join(' -> ')}`;
+
     });
 
 });
