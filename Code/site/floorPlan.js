@@ -168,6 +168,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     //}
 
     findPathButton.addEventListener('click', async function () {
+        event.preventDefault(); // Prevent form submission
         try {
             // Collect checked QR codes
             const qrCheckboxes = document.querySelectorAll('.qr-checkbox');
