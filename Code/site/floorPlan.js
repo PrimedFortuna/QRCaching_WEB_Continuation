@@ -221,6 +221,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
             const result = await response.json();
             console.log('Received QR sequence:', result.qr_sequence);
+            alert('Received QR sequence:', result.qr_sequence);
         } catch (error) {
             console.error('Error:', error);
         }
