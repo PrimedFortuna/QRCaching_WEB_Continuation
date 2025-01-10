@@ -140,9 +140,15 @@ document.addEventListener('DOMContentLoaded', async function () {
             // Display the received QR sequence in the path-output div
             const pathOutputDiv = document.getElementById('path-output');
             if (pathOutputDiv) {
-                pathOutputDiv.innerHTML = `<h3>QR Code Sequence</h3><p>${result.qr_sequence}</p>`;
+                for (let i = 0; i < result.qr_sequence.length; i++) {
+                    const qrCode = result.qr_sequence[i];
+                    const qrCodeElement = document.createElement('p');
+                    qrCodeElement.textContent = `QR Code ${qrCode.lqrcode_id} ->`;
+                    pathOutputDiv.appendChild(qrCodeElement);
+
+                }
             }
-            
+
         } catch (error) {
             console.error('Error:', error);
         }
