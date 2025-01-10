@@ -34,6 +34,37 @@ function initMap() {
     directionsRenderer = new google.maps.DirectionsRenderer();
     directionsRenderer.setMap(map);
 
+
+    //comment after prot
+
+    const qrCodes = [
+        { lat: 38.710186, lng: -9.139109, title: "QR Code 1 - Praça do Comércio" },
+        { lat: 38.711346, lng: -9.136726, title: "QR Code 2 - Rua Augusta" },
+        { lat: 38.712345, lng: -9.140200, title: "QR Code 3 - Cais das Colunas" },
+        { lat: 38.713500, lng: -9.137800, title: "QR Code 4 - Arco da Rua Augusta" },
+        { lat: 38.707006, lng: -9.152476 },
+        { lat: 38.730121, lng: -9.474325 },
+        { lat: 38.768584, lng: -9.035272 },
+    ];
+
+    qrCodes.forEach(qrCode => {
+        const marker = new google.maps.Marker({
+            position: { lat: qrCode.lat, lng: qrCode.lng },
+            map: map,
+            title: qrCode.title,
+        });
+
+        marker.addListener('click', () => {
+            handleWaypointSelection(marker);
+        });
+
+        markers.push(marker);
+    });
+
+    //comment after prot
+
+
+
     // Fetch QR codes from the server that are not in any event
     fetch('https://maltinha.ddns.net/lqrcodes')
         .then(response => response.json())
