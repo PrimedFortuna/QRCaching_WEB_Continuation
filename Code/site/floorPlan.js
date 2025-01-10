@@ -57,8 +57,8 @@ document.addEventListener('DOMContentLoaded', async function () {
             const numericId = lowestQrCodeId + i;
 
             const label = document.createElement('label');
-            label.htmlFor = `QrCode ${i}`;
-            label.textContent = `QR Code ${i}`;
+            label.htmlFor = `QrCode ${i+1}`;
+            label.textContent = `QR Code ${i+1}`;
 
             const checkbox = document.createElement('input');
             checkbox.type = 'checkbox';
@@ -144,7 +144,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                     const qrCode = result.qr_sequence[i];
 
                     const qrCodeElement = document.createElement('p');
-                    qrCodeElement.textContent = `QR Code ${qrCode})`;
+                    qrCodeElement.textContent = `QR Code ${qrCode}`;
                     pathOutputDiv.appendChild(qrCodeElement);
                 }
             }
