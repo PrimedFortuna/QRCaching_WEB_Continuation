@@ -21,6 +21,17 @@ def parse_svg(svg_content):
 
     return walls
 
+def parse_qr_codes(qr_codes_raw):
+    parsed_qr_codes = []
+    for qr_code in qr_codes_raw:
+        try:
+            values = list(map(float, qr_code.split(',')))
+            parsed_qr_codes.append(tuple(values[1:]))
+        except ValueError:
+            print(f"Invalid QR code entry: {qr_code}")
+            continue  # Skip invalid entries
+    return parsed_qr_codes
+
 
 # A* pathfinding
 def find_shortest_path(qr_codes, walls):
@@ -88,16 +99,19 @@ def find_path():
     svg_content = data['eventSVG']
     qr_codes_raw = data['qrCodeDataString']
 
-    # Parse QR codes and walls
-    qr_codes = [
-        tuple(list(map(float, qr_code.split(',')))[1:]) for qr_code in qr_codes_raw
-    ]
+    print("Received QR Code Data:", qr_codes_raw)  # Debugging log
+
+    qr_codes = parse_qr_codes(qr_codes_raw)
+    if not qr_codes:
+        return jsonify({"error": "No valid QR code data found."}), 400
+
     walls = parse_svg(svg_content)
 
     # Calculate the shortest path
     path, qr_sequence = find_shortest_path(qr_codes, walls)
 
     return jsonify({'qr_sequence': qr_sequence, 'path': path})
+
 
 
 if __name__ == '__main__':
