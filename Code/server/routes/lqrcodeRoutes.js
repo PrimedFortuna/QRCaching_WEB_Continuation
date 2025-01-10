@@ -69,6 +69,19 @@ router.get('/find_by_id/:lqrcode_id', async (req, res) => {
     }
 });
 
+//Find by (`/lqrcodes/find_by_longitude_latitude/${qrCode.longitude}/${qrCode.latitude}`)
+router.get('/find_by_longitude_latitude/:longitude/:latitude', async (req, res) => {
+    try {
+        const lqrcode = await Lqrcode.findOne({ lqrcode_longitude: req.params.longitude, lqrcode_latitude: req.params.latitude });
+        if (!lqrcode) {
+            return res.status(404).json({ message: 'Lqrcode not found' });
+        }
+        res.json(lqrcode);
+    } catch (error) {
+        console.error('Error fetching Lqrcode by longitude and latitude:', error);
+        res.status(500).json({ message: error.message });
+    }
+});
 
 // Get a single lqrcode
 router.get('/:id', getLqrcode, (req, res) => {

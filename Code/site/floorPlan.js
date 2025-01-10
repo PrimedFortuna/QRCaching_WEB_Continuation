@@ -142,8 +142,17 @@ document.addEventListener('DOMContentLoaded', async function () {
             if (pathOutputDiv) {
                 for (let i = 0; i < result.qr_sequence.length; i++) {
                     const qrCode = result.qr_sequence[i];
+
+                    //find by longitude e latitude
+                    const qrCodeData = await fetch(`/lqrcodes/find_by_longitude_latitude/${qrCode.longitude}/${qrCode.latitude}`).then(response => {
+                        if (!response.ok) {
+                            throw new Error(`Error fetching QR code: ${response.statusText}`);
+                        }
+                        return response.json();
+                    });
+                    
                     const qrCodeElement = document.createElement('p');
-                    qrCodeElement.textContent = `QR Code ${qrCode.lqrcode_id} ->`;
+                    qrCodeElement.textContent = `QR Code ${qrCodeData.lqrcode_id})`;
                     pathOutputDiv.appendChild(qrCodeElement);
 
                 }
