@@ -107,11 +107,9 @@ document.addEventListener('DOMContentLoaded', async function () {
                 )
             );
 
-            //const qrCodeDataString = qrCodeData.map(data =>
-            //    `${data.id},${data.lqrcode_longitude},${data.lqrcode_latitude}`
-            //);
-
-            const qrCodeDataString = ["1,400,500", "2,600,700"]
+            const qrCodeDataString = qrCodeData.map(data =>
+                `${data.lqrcode_id},${data.lqrcode_longitude},${data.lqrcode_latitude}`
+            );
 
             // Fetch event data
             const eventData = await fetch(`/events/${eventId}`).then(response => {
