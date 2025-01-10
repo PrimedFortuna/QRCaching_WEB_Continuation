@@ -82,6 +82,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
 
     findPathButton.addEventListener('click', async function () {
+        event.preventDefault(); // Prevent form from reloading the page
         try {
             // Collect checked QR codes
             const qrCheckboxes = document.querySelectorAll('.qr-checkbox');
