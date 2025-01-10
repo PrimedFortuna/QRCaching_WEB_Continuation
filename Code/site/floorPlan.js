@@ -120,7 +120,6 @@ document.addEventListener('DOMContentLoaded', async function () {
             });
 
             const eventSVG = eventData.events_svg;
-            alert('qrCodeDataString:', qrCodeDataString);
 
             // Send data to backend
             const pathData = { qrCodeDataString, eventSVG };
@@ -142,7 +141,8 @@ document.addEventListener('DOMContentLoaded', async function () {
             console.error('Error:', error);
         }
 
-        // Display the result
+        // Now, define pathOrder and display it
+        const pathOrder = result.qr_sequence; // Assuming this is the correct structure
         const pathOutput = document.getElementById('path-output');
         pathOutput.textContent = `Order of QR codes to collect: ${pathOrder.join(' -> ')}`;
     });
